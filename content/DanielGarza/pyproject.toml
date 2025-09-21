@@ -1,0 +1,38 @@
+[build-system]
+requires = [
+    "setuptools>=68",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kinetic-model"
+description = "Kinetic modeling engine for microbial community dynamics"
+requires-python = ">=3.9"
+authors = [
+    { name = "Daniel Rios Garza" }
+]
+dependencies = [
+    "numpy>=1.21",
+    "scipy>=1.8",
+    "plotly>=5.0"
+]
+dynamic = ["version"]
+
+[project.scripts]
+kinetic-model = "kinetic_model.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["kinetic_model*"]
+
+[tool.setuptools.package-data]
+kinetic_model = ["py.typed"]
+
+[tool.setuptools.dynamic]
+version = { attr = "kinetic_model.__version__" }
+
+
