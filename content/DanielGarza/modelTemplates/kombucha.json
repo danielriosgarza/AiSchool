@@ -195,7 +195,7 @@
         "subpopulations": {
           "x1": {
             "name": "x1",
-            "count": 0.002,
+            "count": 0.01,
             "species": "sc",
             "mumax": 0.2,
             "pHopt": 5.2,
@@ -211,8 +211,8 @@
                 "id": "x1_invertase",
                 "metDict": {
                   "sucrose": [
-                    0.6,
-                    0.6
+                    100.0,
+                    1.0
                   ],
                   "glucose": [
                     0.3,
@@ -349,7 +349,7 @@
         "subpopulations": {
           "x4": {
             "name": "x4",
-            "count": 0.006,
+            "count": 0.01,
             "species": "kx",
             "mumax": 0.35,
             "pHopt": 4.5,
@@ -483,7 +483,7 @@
         "subpopulations": {
           "x7": {
             "name": "x7",
-            "count": 0.004,
+            "count": 0.01,
             "species": "aa",
             "mumax": 0.45,
             "pHopt": 4.4,
@@ -590,7 +590,7 @@
         "subpopulations": {
           "x10": {
             "name": "x10",
-            "count": 0.003,
+            "count": 0.01,
             "species": "lp",
             "mumax": 0.5,
             "pHopt": 5.0,
@@ -666,7 +666,7 @@
         "subpopulations": {
           "x12": {
             "name": "x12",
-            "count": 0.002,
+            "count": 0.01,
             "species": "zb",
             "mumax": 0.45,
             "pHopt": 4.2,
