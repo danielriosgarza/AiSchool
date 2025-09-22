@@ -1,0 +1,597 @@
+{
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Bioanode Starch Community",
+    "description": "Electroactive community on starch: Clostridium butyricum (fermenter), Shewanella oneidensis (lactate/formate oxidizer), Geobacter sulfurreducens (acetate oxidizer).",
+    "author": "MicrobiomeGym Team",
+    "created": "2025-09-06T20:15:00.000Z",
+    "tags": [
+      "bioanode",
+      "starch",
+      "electroactive",
+      "subpopulations",
+      "transitions",
+      "pH"
+    ]
+  },
+  "metabolome": {
+    "metabolites": [
+      {
+        "name": "starch",
+        "concentration": 5.0,
+        "formula": {
+          "C": 6,
+          "H": 10,
+          "O": 5,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#a37c28",
+        "description": "Polyglucan substrate (approximated as (C6H10O5)n)."
+      },
+      {
+        "name": "maltose",
+        "concentration": 0.5,
+        "formula": {
+          "C": 12,
+          "H": 22,
+          "O": 11,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#d8a657",
+        "description": "Disaccharide from starch hydrolysis."
+      },
+      {
+        "name": "glucose",
+        "concentration": 0.2,
+        "formula": {
+          "C": 6,
+          "H": 12,
+          "O": 6,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#ff0000",
+        "description": "Monomer from starch/maltose."
+      },
+      {
+        "name": "acetate",
+        "concentration": 0.1,
+        "formula": {
+          "C": 2,
+          "H": 4,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#003eff",
+        "description": "Key anode substrate and acid."
+      },
+      {
+        "name": "lactate",
+        "concentration": 0.1,
+        "formula": {
+          "C": 3,
+          "H": 6,
+          "O": 3,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#00ffaf",
+        "description": "Fermentation product; Shewanella substrate."
+      },
+      {
+        "name": "formate",
+        "concentration": 0.05,
+        "formula": {
+          "C": 1,
+          "H": 2,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#00c6ff",
+        "description": "Fermentation product; Shewanella substrate."
+      },
+      {
+        "name": "butyrate",
+        "concentration": 0.05,
+        "formula": {
+          "C": 4,
+          "H": 8,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#ff00a1",
+        "description": "Acid from saccharolytic fermentation."
+      },
+      {
+        "name": "ethanol",
+        "concentration": 0.05,
+        "formula": {
+          "C": 2,
+          "H": 6,
+          "O": 1,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#7f7fff",
+        "description": "Minor fermentation product."
+      },
+      {
+        "name": "H2",
+        "concentration": 0.0,
+        "formula": {
+          "C": 0,
+          "H": 2,
+          "O": 0,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#888888",
+        "description": "Fermentation gas."
+      },
+      {
+        "name": "CO2",
+        "concentration": 0.0,
+        "formula": {
+          "C": 1,
+          "H": 0,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#555555",
+        "description": "Respiration/fermentation product."
+      }
+    ],
+    "pH": {
+      "name": "pH Control",
+      "baseValue": 7.0,
+      "connectedMetabolites": {
+        "acetate": -0.08,
+        "lactate": -0.12,
+        "butyrate": -0.06,
+        "CO2": -0.005
+      },
+      "color": "#10b981",
+      "description": "pH node influenced by acid/CO2 accumulation."
+    },
+    "temperature": 30,
+    "stirring": 1
+  },
+  "microbiome": {
+    "name": "microbial_community",
+    "color": "#4444ff",
+    "bacteria": {
+      "cb": {
+        "species": "Clostridium butyricum",
+        "color": "#d97706",
+        "subpopulations": {
+          "xa": {
+            "name": "xa",
+            "count": 0.004,
+            "species": "Clostridium butyricum",
+            "mumax": 0.6,
+            "pHopt": 6.2,
+            "pH_sensitivity_left": 1.3,
+            "pH_sensitivity_right": 1.5,
+            "Topt": 37,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#f59e0b",
+            "feedingTerms": [
+              {
+                "id": "xa_starch_hydrolysis",
+                "metDict": {
+                  "starch": [
+                    1.0,
+                    1.0
+                  ],
+                  "maltose": [
+                    999.0,
+                    -0.6
+                  ],
+                  "glucose": [
+                    999.0,
+                    -0.4
+                  ]
+                }
+              }
+            ]
+          },
+          "xb": {
+            "name": "xb",
+            "count": 0.0,
+            "species": "Clostridium butyricum",
+            "mumax": 0.85,
+            "pHopt": 6.0,
+            "pH_sensitivity_left": 1.2,
+            "pH_sensitivity_right": 1.8,
+            "Topt": 37,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#b45309",
+            "feedingTerms": [
+              {
+                "id": "xb_sugar_fermentation",
+                "metDict": {
+                  "glucose": [
+                    0.5,
+                    1.0
+                  ],
+                  "maltose": [
+                    0.8,
+                    0.8
+                  ],
+                  "acetate": [
+                    999.0,
+                    -0.6
+                  ],
+                  "butyrate": [
+                    999.0,
+                    -0.2
+                  ],
+                  "lactate": [
+                    999.0,
+                    -0.2
+                  ],
+                  "H2": [
+                    999.0,
+                    -0.1
+                  ],
+                  "CO2": [
+                    999.0,
+                    -0.1
+                  ],
+                  "ethanol": [
+                    999.0,
+                    -0.05
+                  ]
+                }
+              }
+            ]
+          },
+          "xc": {
+            "name": "xc",
+            "count": 0.0,
+            "species": "Clostridium butyricum",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 37,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "xd": {
+            "name": "xd",
+            "count": 0.0,
+            "species": "Clostridium butyricum",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 37,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "xa": [
+            [
+              "xb",
+              "((glucose + maltose) ** 10.0)/(((glucose + maltose)) ** 10.0 + 0.5 ** 10.0)",
+              0.5
+            ],
+            [
+              "xc",
+              "(0.05 ** 10.0)/(0.05 ** 10.0 + starch ** 10.0)",
+              0.05
+            ]
+          ],
+          "xb": [
+            [
+              "xa",
+              "(starch ** 10.0/(starch ** 10.0 + 1.0 ** 10.0)) * (0.1 ** 10.0/((glucose + maltose) ** 10.0 + 0.1 ** 10.0))",
+              0.1
+            ],
+            [
+              "xc",
+              "(((acetate + butyrate + lactate) ) ** 10.0/(((acetate + butyrate + lactate)) ** 10.0 + 10.0 ** 10.0)) * (5.8 ** 10.0/(5.8 ** 10.0 + environment.pH.compute_pH(concentrations) ** 10.0))",
+              0.2
+            ]
+          ],
+          "xc": [
+            [
+              "xd",
+              "\"\"",
+              0.01
+            ]
+          ]
+        }
+      },
+      "so": {
+        "species": "Shewanella oneidensis",
+        "color": "#0ea5e9",
+        "subpopulations": {
+          "xe": {
+            "name": "xe",
+            "count": 0.003,
+            "species": "Shewanella oneidensis",
+            "mumax": 0.55,
+            "pHopt": 7.2,
+            "pH_sensitivity_left": 1.3,
+            "pH_sensitivity_right": 1.4,
+            "Topt": 30,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#38bdf8",
+            "feedingTerms": [
+              {
+                "id": "xe_lactate_oxidation",
+                "metDict": {
+                  "lactate": [
+                    1.0,
+                    1.0
+                  ],
+                  "acetate": [
+                    999.0,
+                    -0.8
+                  ],
+                  "CO2": [
+                    999.0,
+                    -0.2
+                  ]
+                }
+              },
+              {
+                "id": "xe_formate_oxidation",
+                "metDict": {
+                  "formate": [
+                    1.2,
+                    1.0
+                  ],
+                  "CO2": [
+                    999.0,
+                    -1.0
+                  ]
+                }
+              }
+            ]
+          },
+          "xf": {
+            "name": "xf",
+            "count": 0.0,
+            "species": "Shewanella oneidensis",
+            "mumax": 0.6,
+            "pHopt": 7.1,
+            "pH_sensitivity_left": 1.3,
+            "pH_sensitivity_right": 1.4,
+            "Topt": 30,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#0284c7",
+            "feedingTerms": [
+              {
+                "id": "xf_lactate_oxidation_biofilm",
+                "metDict": {
+                  "lactate": [
+                    0.8,
+                    1.0
+                  ],
+                  "acetate": [
+                    999.0,
+                    -0.8
+                  ],
+                  "CO2": [
+                    999.0,
+                    -0.2
+                  ]
+                }
+              }
+            ]
+          },
+          "xg": {
+            "name": "xg",
+            "count": 0.0,
+            "species": "Shewanella oneidensis",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 30,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "xh": {
+            "name": "xh",
+            "count": 0.0,
+            "species": "Shewanella oneidensis",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 30,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "xe": [
+            [
+              "xf",
+              "(lactate ** 10.0)/(lactate ** 10.0 + 0.2 ** 10.0)",
+              0.2
+            ],
+            [
+              "xg",
+              "(0.05 ** 10.0)/(0.05 ** 10.0 + (lactate + formate) ** 10.0)",
+              0.1
+            ]
+          ],
+          "xf": [
+            [
+              "xg",
+              "(0.05 ** 10.0)/(0.05 ** 10.0 + (lactate + formate) ** 10.0)",
+              0.15
+            ]
+          ],
+          "xg": [
+            [
+              "xh",
+              "\"\"",
+              0.005
+            ]
+          ]
+        }
+      },
+      "gs": {
+        "species": "Geobacter sulfurreducens",
+        "color": "#16a34a",
+        "subpopulations": {
+          "xj": {
+            "name": "xj",
+            "count": 0.003,
+            "species": "Geobacter sulfurreducens",
+            "mumax": 0.35,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.4,
+            "Topt": 30,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#22c55e",
+            "feedingTerms": [
+              {
+                "id": "xj_acetate_oxidation_planktonic",
+                "metDict": {
+                  "acetate": [
+                    0.5,
+                    0.6
+                  ],
+                  "CO2": [
+                    999.0,
+                    -0.6
+                  ]
+                }
+              }
+            ]
+          },
+          "xi": {
+            "name": "xi",
+            "count": 0.0,
+            "species": "Geobacter sulfurreducens",
+            "mumax": 0.45,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.4,
+            "Topt": 30,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#15803d",
+            "feedingTerms": [
+              {
+                "id": "xi_acetate_oxidation_biofilm",
+                "metDict": {
+                  "acetate": [
+                    0.2,
+                    1.0
+                  ],
+                  "CO2": [
+                    999.0,
+                    -1.0
+                  ]
+                }
+              }
+            ]
+          },
+          "xk": {
+            "name": "xk",
+            "count": 0.0,
+            "species": "Geobacter sulfurreducens",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 30,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "xl": {
+            "name": "xl",
+            "count": 0.0,
+            "species": "Geobacter sulfurreducens",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 30,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "xj": [
+            [
+              "xi",
+              "(acetate ** 10.0)/(acetate ** 10.0 + 0.1 ** 10.0)",
+              0.3
+            ]
+          ],
+          "xi": [
+            [
+              "xk",
+              "(0.02 ** 10.0)/(0.02 ** 10.0 + acetate ** 10.0)",
+              0.05
+            ]
+          ],
+          "xk": [
+            [
+              "xl",
+              "\"\"",
+              0.005
+            ]
+          ]
+        }
+      }
+    },
+    "standaloneSubpopulations": []
+  }
+}

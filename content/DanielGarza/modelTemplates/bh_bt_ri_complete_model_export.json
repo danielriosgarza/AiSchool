@@ -1,0 +1,661 @@
+{
+    "version": "1.0.0",
+    "metadata": {
+      "name": "MicrobiomeGym Model",
+      "description": "Model exported from visual builder",
+      "author": "MicrobiomeGym Team",
+      "created": "2025-08-20T09:35:00.210Z",
+      "tags": [
+        "bacteria",
+        "subpopulations",
+        "transitions",
+        "ph"
+      ]
+    },
+    "metabolome": {
+      "metabolites": [
+        {
+          "name": "glucose",
+          "concentration": 8.917955468,
+          "formula": {
+            "C": 6,
+            "H": 12,
+            "O": 6,
+            "N": 0,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#ff0000",
+          "description": "Glucose metabolite"
+        },
+        {
+          "name": "pyruvate",
+          "concentration": 8.1368174275,
+          "formula": {
+            "C": 3,
+            "H": 4,
+            "O": 3,
+            "N": 0,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#ff8900",
+          "description": "Pyruvate metabolite"
+        },
+        {
+          "name": "trehalose",
+          "concentration": 0.684513088333333,
+          "formula": {
+            "C": 12,
+            "H": 22,
+            "O": 11,
+            "N": 0,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#8900ff",
+          "description": "Trehalose metabolite"
+        },
+        {
+          "name": "succinate",
+          "concentration": 0.444971364333333,
+          "formula": {
+            "C": 4,
+            "H": 6,
+            "O": 4,
+            "N": 0,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#00ff26",
+          "description": "Succinate metabolite"
+        },
+        {
+          "name": "lactate",
+          "concentration": 0.272274459166667,
+          "formula": {
+            "C": 3,
+            "H": 6,
+            "O": 3,
+            "N": 0,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#00ffaf",
+          "description": "Lactate metabolite"
+        },
+        {
+          "name": "formate",
+          "concentration": 0.699764498666667,
+          "formula": {
+            "C": 1,
+            "H": 2,
+            "O": 2,
+            "N": 0,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#00c6ff",
+          "description": "Formate metabolite"
+        },
+        {
+          "name": "acetate",
+          "concentration": 1.99119196216667,
+          "formula": {
+            "C": 2,
+            "H": 4,
+            "O": 2,
+            "N": 0,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#003eff",
+          "description": "Acetate metabolite"
+        },
+        {
+          "name": "butyrate",
+          "concentration": 0.003717077,
+          "formula": {
+            "C": 4,
+            "H": 8,
+            "O": 2,
+            "N": 0,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#ff00a1",
+          "description": "Butyrate metabolite"
+        },
+        {
+          "name": "mannose",
+          "concentration": 1,
+          "formula": {
+            "C": 6,
+            "H": 12,
+            "O": 6,
+            "N": 1,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#024059",
+          "description": "Mannose metabolite"
+        },
+        {
+          "name": "glutamate",
+          "concentration": 1,
+          "formula": {
+            "C": 5,
+            "H": 9,
+            "O": 4,
+            "N": 1,
+            "S": 0,
+            "P": 0
+          },
+          "color": "#00B8FF",
+          "description": "Glutamate metabolite"
+        }
+      ],
+      "pH": {
+        "name": "pH Control",
+        "baseValue": 6.6369,
+        "connectedMetabolites": {
+          "succinate": -0.0972,
+          "butyrate": -0.0436,
+          "acetate": -0.0491
+        },
+        "color": "#10b981",
+        "description": "pH control node that can be influenced by metabolites"
+      },
+      "temperature": 37,
+      "stirring": 1
+    },
+    "microbiome": {
+      "name": "microbial_community",
+      "color": "#4444ff",
+      "bacteria": {
+        "bh": {
+          "species": "bh",
+          "color": "#f73be7",
+          "subpopulations": {
+            "xa": {
+              "name": "xa",
+              "count": 0.003,
+              "species": "bh",
+              "mumax": 0.1927934811,
+              "pHopt": 6.818018847,
+              "pH_sensitivity_left": 1.3789,
+              "pH_sensitivity_right": 1.3789,
+              "Topt": 37,
+              "tempSensitivity_left": 700,
+              "tempSensitivity_right": 800,
+              "state": "active",
+              "color": "#FF10F0",
+              "feedingTerms": [
+                {
+                  "id": "xa_trehalose",
+                  "metDict": {
+                    "trehalose": [
+                      1.2417775764,
+                      0.287608049
+                    ],
+                    "lactate": [
+                      2.9999999999,
+                      0
+                    ],
+                    "acetate": [
+                      1e-10,
+                      0
+                    ]
+                  }
+                },
+                {
+                  "id": "xa_pyruvate",
+                  "metDict": {
+                    "pyruvate": [
+                      1,
+                      2.3916509762
+                    ],
+                    "acetate": [
+                      1.8699494242,
+                      0
+                    ]
+                  }
+                }
+              ]
+            },
+            "xb": {
+              "name": "xb",
+              "count": 0,
+              "species": "bh",
+              "mumax": 0.978104098,
+              "pHopt": 6.5395960604,
+              "pH_sensitivity_left": 1.1712,
+              "pH_sensitivity_right": 1.1712,
+              "Topt": 37,
+              "tempSensitivity_left": 3,
+              "tempSensitivity_right": 4,
+              "state": "active",
+              "color": "#FF10F0",
+              "feedingTerms": [
+                {
+                  "id": "xb_pyruvate",
+                  "metDict": {
+                    "pyruvate": [
+                      10,
+                      0.5
+                    ],
+                    "acetate": [
+                      4.9999999999,
+                      0
+                    ]
+                  }
+                },
+                {
+                  "id": "xb_glucose_glutamate",
+                  "metDict": {
+                    "glucose": [
+                      3.7638796806,
+                      0.1039681099
+                    ],
+                    "glutamate": [
+                      0.5,
+                      1.2700484896
+                    ],
+                    "acetate": [
+                      2.9999999999,
+                      0
+                    ]
+                  }
+                }
+              ]
+            },
+            "xc": {
+              "name": "xc",
+              "count": 0,
+              "species": "bh",
+              "mumax": 0,
+              "pHopt": 7,
+              "pH_sensitivity_left": 2,
+              "pH_sensitivity_right": 2,
+              "Topt": 37,
+              "tempSensitivity_left": 5,
+              "tempSensitivity_right": 2,
+              "state": "inactive",
+              "color": "#d6d6d6",
+              "feedingTerms": []
+            },
+            "xd": {
+              "name": "xd",
+              "count": 0,
+              "species": "bh",
+              "mumax": 0,
+              "pHopt": 7,
+              "pH_sensitivity_left": 2,
+              "pH_sensitivity_right": 2,
+              "Topt": 37,
+              "tempSensitivity_left": 5,
+              "tempSensitivity_right": 2,
+              "state": "dead",
+              "color": "#464544",
+              "feedingTerms": []
+            }
+          },
+          "connections": {
+            "xa": [
+              [
+                "xb",
+                "(4.57e-08 ** 1.0/(4.57e-08 ** 1.0 + trehalose ** 1.0))",
+                0.0250945181
+              ],
+              [
+                "xc",
+                "\"\"",
+                0.00001
+              ]
+            ],
+            "xb": [
+              [
+                "xa",
+                "(trehalose ** 50.0)/(trehalose ** 50.0 + 0.21 ** 50.0)",
+                1.5
+              ],
+              [
+                "xc",
+                "(0.0001293346 ** 2.9055456987/(0.0001293346 ** 2.9055456987 + ((glucose + glutamate - ((glucose - glutamate)**2)**0.5)/2) ** 2.9055456987))",
+                0.2960374542
+              ]
+            ],
+            "xc": [
+              [
+                "xd",
+                "\"\"",
+                0.0355569688
+              ]
+            ]
+          }
+        },
+        "bt": {
+          "species": "bt",
+          "color": "#f7963b",
+          "subpopulations": {
+            "xe": {
+              "name": "xe",
+              "count": 0.003,
+              "species": "bt",
+              "mumax": 0.9215459253,
+              "pHopt": 7.5078120464,
+              "pH_sensitivity_left": 1.2969,
+              "pH_sensitivity_right": 1.2969,
+              "Topt": 37,
+              "tempSensitivity_left": 2,
+              "tempSensitivity_right": 3,
+              "state": "active",
+              "color": "#ff8300",
+              "feedingTerms": [
+                {
+                  "id": "xe_pyruvate",
+                  "metDict": {
+                    "pyruvate": [
+                      2.9010309178,
+                      9.9999999149
+                    ],
+                    "acetate": [
+                      0.260294755,
+                      0
+                    ],
+                    "lactate": [
+                      1.7181885318,
+                      0
+                    ],
+                    "formate": [
+                      0.6158861983,
+                      0
+                    ]
+                  }
+                },
+                {
+                  "id": "xe_glucose",
+                  "metDict": {
+                    "glucose": [
+                      1.0269754623,
+                      0.3530205777
+                    ],
+                    "acetate": [
+                      0.9965936487,
+                      0
+                    ],
+                    "succinate": [
+                      0.6252715462,
+                      0
+                    ]
+                  }
+                }
+              ]
+            },
+            "xf": {
+              "name": "xf",
+              "count": 0,
+              "species": "bt",
+              "mumax": 1.1965073511,
+              "pHopt": 6.9840946443,
+              "pH_sensitivity_left": 1.1325,
+              "pH_sensitivity_right": 1.1325,
+              "Topt": 37,
+              "tempSensitivity_left": 2,
+              "tempSensitivity_right": 3,
+              "state": "active",
+              "color": "#ff8300",
+              "feedingTerms": [
+                {
+                  "id": "xf_mannose",
+                  "metDict": {
+                    "mannose": [
+                      0.404023368,
+                      0.105982109
+                    ],
+                    "acetate": [
+                      0.8532416313,
+                      0
+                    ],
+                    "succinate": [
+                      2.0255236699,
+                      0
+                    ]
+                  }
+                }
+              ]
+            },
+            "xg": {
+              "name": "xg",
+              "count": 0,
+              "species": "bt",
+              "mumax": 0,
+              "pHopt": 7,
+              "pH_sensitivity_left": 2,
+              "pH_sensitivity_right": 2,
+              "Topt": 37,
+              "tempSensitivity_left": 5,
+              "tempSensitivity_right": 2,
+              "state": "inactive",
+              "color": "#b1b0af",
+              "feedingTerms": []
+            },
+            "xh": {
+              "name": "xh",
+              "count": 0,
+              "species": "bt",
+              "mumax": 0,
+              "pHopt": 7,
+              "pH_sensitivity_left": 2,
+              "pH_sensitivity_right": 2,
+              "Topt": 37,
+              "tempSensitivity_left": 5,
+              "tempSensitivity_right": 2,
+              "state": "dead",
+              "color": "#212121",
+              "feedingTerms": []
+            }
+          },
+          "connections": {
+            "xf": [
+              [
+                "xe",
+                "((glucose) ** 10.0/((glucose) ** 10.0 + 0.5 ** 10.0))",
+                0.0001
+              ],
+              [
+                "xg",
+                "(7.162e-07 ** 29.9999999967/(7.162e-07 ** 29.9999999967 + (mannose ** 29.9999999967))) * (5.5 ** 10.0/(5.5 ** 10.0 + environment.pH.compute_pH(concentrations) ** 10.0))",
+                0.0765445031
+              ]
+            ],
+            "xg": [
+              [
+                "xh",
+                "\"\"",
+                0.0044568271
+              ]
+            ],
+            "xe": [
+              [
+                "xg",
+                "(0.0065072254 ** 1.459916231/(0.0065072254 ** 1.459916231 + (glucose ** 1.459916231))) * (5.5 ** 10.0/(5.5 ** 10.0 + environment.pH.compute_pH(concentrations) ** 10.0))",
+                0.9575532048
+              ],
+              [
+                "xf",
+                "(0.0099187739 ** 1.0006644305/(0.0099187739 ** 1.0006644305 + (glucose ** 1.0006644305))) * (mannose ** 1.0022092044/(0.5099461371 ** 1.0022092044 + mannose ** 1.0022092044))",
+                1.49590777
+              ]
+            ]
+          }
+        },
+        "ri": {
+          "species": "ri",
+          "color": "#3b82f6",
+          "subpopulations": {
+            "xk": {
+              "name": "xk",
+              "count": 0,
+              "species": "ri",
+              "mumax": 0,
+              "pHopt": 7,
+              "pH_sensitivity_left": 2,
+              "pH_sensitivity_right": 2,
+              "Topt": 37,
+              "tempSensitivity_left": 500,
+              "tempSensitivity_right": 200,
+              "state": "inactive",
+              "color": "#c2c2c2",
+              "feedingTerms": []
+            },
+            "xi": {
+              "name": "xi",
+              "count": 0.003,
+              "species": "ri",
+              "mumax": 0.705966814,
+              "pHopt": 7.7682760382,
+              "pH_sensitivity_left": 1.6335,
+              "pH_sensitivity_right": 1.6335,
+              "Topt": 37,
+              "tempSensitivity_left": 5,
+              "tempSensitivity_right": 6,
+              "state": "active",
+              "color": "#00B8FF",
+              "feedingTerms": [
+                {
+                  "id": "xi_glucose",
+                  "metDict": {
+                    "glucose": [
+                      1.7594802851,
+                      6.8653726711
+                    ],
+                    "acetate": [
+                      0.7276644727,
+                      0
+                    ],
+                    "lactate": [
+                      0.3774439538,
+                      0
+                    ],
+                    "butyrate": [
+                      6.865175095e-12,
+                      0
+                    ]
+                  }
+                },
+                {
+                  "id": "xi_pyruvate",
+                  "metDict": {
+                    "pyruvate": [
+                      2.783751318,
+                      0.5475232775
+                    ],
+                    "acetate": [
+                      0.3051280298,
+                      0
+                    ],
+                    "butyrate": [
+                      1.9948315995,
+                      0
+                    ]
+                  }
+                }
+              ]
+            },
+            "xj": {
+              "name": "xj",
+              "count": 0,
+              "species": "ri",
+              "mumax": 0.0153451944,
+              "pHopt": 7.6243042258,
+              "pH_sensitivity_left": 2.2477,
+              "pH_sensitivity_right": 2.2477,
+              "Topt": 37,
+              "tempSensitivity_left": 500,
+              "tempSensitivity_right": 500,
+              "state": "active",
+              "color": "#00B8FF",
+              "feedingTerms": [
+                {
+                  "id": "xj_lactate",
+                  "metDict": {
+                    "lactate": [
+                      1.9604511472,
+                      9.9994578496
+                    ],
+                    "butyrate": [
+                      2.98819627,
+                      0
+                    ]
+                  }
+                },
+                {
+                  "id": "xj_acetate",
+                  "metDict": {
+                    "acetate": [
+                      0.8533874512,
+                      0.2756122752
+                    ],
+                    "butyrate": [
+                      1.9947949958e-9,
+                      0
+                    ]
+                  }
+                }
+              ]
+            },
+            "xl": {
+              "name": "xl",
+              "count": 0,
+              "species": "ri",
+              "mumax": 0,
+              "pHopt": 7,
+              "pH_sensitivity_left": 2,
+              "pH_sensitivity_right": 2,
+              "Topt": 37,
+              "tempSensitivity_left": 5,
+              "tempSensitivity_right": 2,
+              "state": "dead",
+              "color": "#363636",
+              "feedingTerms": []
+            }
+          },
+          "connections": {
+            "xj": [
+              [
+                "xi",
+                "((glucose + pyruvate) ** 50.0/((glucose + pyruvate)  ** 50.0 + 8.0 ** 50.0))",
+                0.1
+              ],
+              [
+                "xk",
+                "\"\"",
+                0.0099999999
+              ]
+            ],
+            "xk": [
+              [
+                "xl",
+                "\"\"",
+                0.00001
+              ]
+            ],
+            "xi": [
+              [
+                "xl",
+                "(0.0034909802 ** 1.1123778083/(0.0034909802 ** 1.1123778083 + (glucose + pyruvate) ** 1.1123778083))",
+                1.9999999999
+              ],
+              [
+                "xj",
+                "((lactate + acetate) ** 29.9999999958/(2.3311915035 ** 29.9999999958 + (lactate + acetate) ** 29.9999999958))",
+                0.0219468232
+              ]
+            ]
+          }
+        }
+      },
+      "standaloneSubpopulations": []
+    }
+  }

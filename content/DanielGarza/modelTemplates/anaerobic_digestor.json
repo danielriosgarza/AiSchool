@@ -1,0 +1,1114 @@
+{
+  "version": "1.0.0",
+  "metadata": {
+    "name": "ADM1-like Anaerobic Digester (Boolean/Simple)",
+    "description": "Hydrolysis → acidogenesis → syntrophy → methanogenesis with boolean transitions and loader-safe feeding terms.",
+    "author": "MicrobiomeGym Team",
+    "created": "2025-09-07T19:23:52Z",
+    "tags": [
+      "ADM1",
+      "boolean",
+      "simple",
+      "pH-calibrated"
+    ]
+  },
+  "metabolome": {
+    "metabolites": [
+      {
+        "name": "p_carbs",
+        "concentration": 5.0,
+        "formula": {
+          "C": 6,
+          "H": 10,
+          "O": 5,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#a37c28",
+        "description": "Particulate carbohydrates"
+      },
+      {
+        "name": "p_proteins",
+        "concentration": 3.0,
+        "formula": {
+          "C": 4,
+          "H": 7,
+          "O": 2,
+          "N": 1,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#b87b5f",
+        "description": "Particulate proteins"
+      },
+      {
+        "name": "p_lipids",
+        "concentration": 2.0,
+        "formula": {
+          "C": 57,
+          "H": 104,
+          "O": 6,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#c7a36e",
+        "description": "Particulate lipids"
+      },
+      {
+        "name": "s_su",
+        "concentration": 0.2,
+        "formula": {
+          "C": 6,
+          "H": 12,
+          "O": 6,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#f59e0b",
+        "description": "Soluble sugars"
+      },
+      {
+        "name": "s_aa",
+        "concentration": 0.2,
+        "formula": {
+          "C": 2,
+          "H": 4,
+          "O": 2,
+          "N": 1,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#e879f9",
+        "description": "Amino acids (lumped)"
+      },
+      {
+        "name": "s_fa",
+        "concentration": 0.1,
+        "formula": {
+          "C": 18,
+          "H": 34,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#7dd3fc",
+        "description": "LCFA (lumped)"
+      },
+      {
+        "name": "valerate",
+        "concentration": 0.05,
+        "formula": {
+          "C": 5,
+          "H": 10,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#c084fc",
+        "description": "C5 VFA"
+      },
+      {
+        "name": "butyrate",
+        "concentration": 0.05,
+        "formula": {
+          "C": 4,
+          "H": 8,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#f472b6",
+        "description": "C4 VFA"
+      },
+      {
+        "name": "propionate",
+        "concentration": 0.05,
+        "formula": {
+          "C": 3,
+          "H": 6,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#22d3ee",
+        "description": "C3 VFA"
+      },
+      {
+        "name": "acetate",
+        "concentration": 0.1,
+        "formula": {
+          "C": 2,
+          "H": 4,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#3b82f6",
+        "description": "C2 VFA"
+      },
+      {
+        "name": "H2",
+        "concentration": 0.0,
+        "formula": {
+          "C": 0,
+          "H": 2,
+          "O": 0,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#9ca3af",
+        "description": "Dissolved hydrogen"
+      },
+      {
+        "name": "CO2",
+        "concentration": 0.0,
+        "formula": {
+          "C": 1,
+          "H": 0,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#6b7280",
+        "description": "Carbon dioxide"
+      },
+      {
+        "name": "CH4",
+        "concentration": 0.0,
+        "formula": {
+          "C": 1,
+          "H": 4,
+          "O": 0,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#10b981",
+        "description": "Methane"
+      },
+      {
+        "name": "NH3",
+        "concentration": 0.05,
+        "formula": {
+          "C": 0,
+          "H": 3,
+          "O": 0,
+          "N": 1,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#4ade80",
+        "description": "Ammonia"
+      },
+      {
+        "name": "HCO3",
+        "concentration": 5.0,
+        "formula": {
+          "C": 1,
+          "H": 1,
+          "O": 3,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#a3e635",
+        "description": "Bicarbonate"
+      }
+    ],
+    "pH": {
+      "name": "pH Control",
+      "baseValue": 7.2,
+      "connectedMetabolites": {
+        "acetate": -0.07,
+        "propionate": -0.06,
+        "butyrate": -0.05,
+        "valerate": -0.04,
+        "CO2": -0.01,
+        "HCO3": 0.07,
+        "NH3": 0.03
+      },
+      "color": "#10b981",
+      "description": "VFAs/CO2 lower pH; bicarbonate/NH3 buffer."
+    },
+    "temperature": 35,
+    "stirring": 1
+  },
+  "microbiome": {
+    "name": "anaerobic_digester_community",
+    "color": "#334155",
+    "bacteria": {
+      "hc": {
+        "species": "Ruminiclostridium cellulolyticum",
+        "color": "#d97706",
+        "subpopulations": {
+          "x1": {
+            "name": "x1",
+            "count": 0.003,
+            "species": "hc",
+            "mumax": 0.5,
+            "pHopt": 6.6,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.6,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#f59e0b",
+            "feedingTerms": [
+              {
+                "id": "x1_hydrolysis_carbs",
+                "metDict": {
+                  "p_carbs": [
+                    1.0,
+                    1.0
+                  ],
+                  "s_su": [
+                    0.9,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x2": {
+            "name": "x2",
+            "count": 0.0,
+            "species": "hc",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x3": {
+            "name": "x3",
+            "count": 0.0,
+            "species": "hc",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x1": [
+            [
+              "x2",
+              "p_carbs < 0.05",
+              0.1
+            ]
+          ],
+          "x2": [
+            [
+              "x3",
+              "True",
+              0.01
+            ]
+          ]
+        }
+      },
+      "hp": {
+        "species": "Proteiniphilum acetatigenes",
+        "color": "#f97316",
+        "subpopulations": {
+          "x4": {
+            "name": "x4",
+            "count": 0.002,
+            "species": "hp",
+            "mumax": 0.45,
+            "pHopt": 6.7,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.6,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#fb923c",
+            "feedingTerms": [
+              {
+                "id": "x4_proteolysis",
+                "metDict": {
+                  "p_proteins": [
+                    1.0,
+                    1.0
+                  ],
+                  "s_aa": [
+                    0.9,
+                    0
+                  ],
+                  "NH3": [
+                    0.2,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x5": {
+            "name": "x5",
+            "count": 0.0,
+            "species": "hp",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x6": {
+            "name": "x6",
+            "count": 0.0,
+            "species": "hp",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x4": [
+            [
+              "x5",
+              "p_proteins < 0.05",
+              0.1
+            ]
+          ],
+          "x5": [
+            [
+              "x6",
+              "True",
+              0.005
+            ]
+          ]
+        }
+      },
+      "hl": {
+        "species": "Anaerovibrio lipolyticus",
+        "color": "#f59e0b",
+        "subpopulations": {
+          "x7": {
+            "name": "x7",
+            "count": 0.002,
+            "species": "hl",
+            "mumax": 0.4,
+            "pHopt": 6.6,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.6,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#fbbf24",
+            "feedingTerms": [
+              {
+                "id": "x7_lipolysis",
+                "metDict": {
+                  "p_lipids": [
+                    1.0,
+                    1.0
+                  ],
+                  "s_fa": [
+                    0.9,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x8": {
+            "name": "x8",
+            "count": 0.0,
+            "species": "hl",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x9": {
+            "name": "x9",
+            "count": 0.0,
+            "species": "hl",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x7": [
+            [
+              "x8",
+              "p_lipids < 0.05",
+              0.1
+            ]
+          ],
+          "x8": [
+            [
+              "x9",
+              "True",
+              0.005
+            ]
+          ]
+        }
+      },
+      "ag": {
+        "species": "Clostridium sensu stricto (acidogens)",
+        "color": "#ef4444",
+        "subpopulations": {
+          "x10": {
+            "name": "x10",
+            "count": 0.004,
+            "species": "ag",
+            "mumax": 0.9,
+            "pHopt": 6.2,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.9,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#f87171",
+            "feedingTerms": [
+              {
+                "id": "x10_ferment_su",
+                "metDict": {
+                  "s_su": [
+                    0.6,
+                    1.0
+                  ],
+                  "acetate": [
+                    0.35,
+                    0
+                  ],
+                  "propionate": [
+                    0.25,
+                    0
+                  ],
+                  "butyrate": [
+                    0.25,
+                    0
+                  ],
+                  "valerate": [
+                    0.1,
+                    0
+                  ],
+                  "H2": [
+                    0.1,
+                    0
+                  ],
+                  "CO2": [
+                    0.1,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "x10_ferment_aa",
+                "metDict": {
+                  "s_aa": [
+                    0.6,
+                    1.0
+                  ],
+                  "acetate": [
+                    0.3,
+                    0
+                  ],
+                  "propionate": [
+                    0.2,
+                    0
+                  ],
+                  "H2": [
+                    0.08,
+                    0
+                  ],
+                  "CO2": [
+                    0.08,
+                    0
+                  ],
+                  "NH3": [
+                    0.05,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x11": {
+            "name": "x11",
+            "count": 0.0,
+            "species": "ag",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x12": {
+            "name": "x12",
+            "count": 0.0,
+            "species": "ag",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x10": [
+            [
+              "x11",
+              "(s_su < 0.05) and (s_aa < 0.05)",
+              0.25
+            ]
+          ],
+          "x11": [
+            [
+              "x12",
+              "True",
+              0.01
+            ]
+          ]
+        }
+      },
+      "sp": {
+        "species": "Syntrophobacter fumaroxidans",
+        "color": "#06b6d4",
+        "subpopulations": {
+          "x13": {
+            "name": "x13",
+            "count": 0.002,
+            "species": "sp",
+            "mumax": 0.3,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.5,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#22d3ee",
+            "feedingTerms": [
+              {
+                "id": "x13_propionate",
+                "metDict": {
+                  "propionate": [
+                    0.2,
+                    1.0
+                  ],
+                  "acetate": [
+                    0.75,
+                    0
+                  ],
+                  "H2": [
+                    0.5,
+                    0
+                  ],
+                  "CO2": [
+                    0.25,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x14": {
+            "name": "x14",
+            "count": 0.0,
+            "species": "sp",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x15": {
+            "name": "x15",
+            "count": 0.0,
+            "species": "sp",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x13": [
+            [
+              "x14",
+              "propionate < 0.02",
+              0.2
+            ]
+          ],
+          "x14": [
+            [
+              "x15",
+              "True",
+              0.005
+            ]
+          ]
+        }
+      },
+      "sb": {
+        "species": "Syntrophomonas wolfei",
+        "color": "#0ea5e9",
+        "subpopulations": {
+          "x16": {
+            "name": "x16",
+            "count": 0.002,
+            "species": "sb",
+            "mumax": 0.28,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.5,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#38bdf8",
+            "feedingTerms": [
+              {
+                "id": "x16_butyrate",
+                "metDict": {
+                  "butyrate": [
+                    0.2,
+                    0.8
+                  ],
+                  "acetate": [
+                    1.0,
+                    0
+                  ],
+                  "H2": [
+                    0.8,
+                    0
+                  ],
+                  "CO2": [
+                    0.2,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "x16_valerate",
+                "metDict": {
+                  "valerate": [
+                    0.3,
+                    0.8
+                  ],
+                  "acetate": [
+                    0.8,
+                    0
+                  ],
+                  "H2": [
+                    0.8,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "x16_lcfa",
+                "metDict": {
+                  "s_fa": [
+                    0.1,
+                    0.5
+                  ],
+                  "acetate": [
+                    1.2,
+                    0
+                  ],
+                  "H2": [
+                    0.8,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x17": {
+            "name": "x17",
+            "count": 0.0,
+            "species": "sb",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x18": {
+            "name": "x18",
+            "count": 0.0,
+            "species": "sb",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x16": [
+            [
+              "x17",
+              "(butyrate < 0.02) and (valerate < 0.02) and (s_fa < 0.02)",
+              0.2
+            ]
+          ],
+          "x17": [
+            [
+              "x18",
+              "True",
+              0.005
+            ]
+          ]
+        }
+      },
+      "ma": {
+        "species": "Methanosaeta concilii",
+        "color": "#16a34a",
+        "subpopulations": {
+          "x19": {
+            "name": "x19",
+            "count": 0.003,
+            "species": "ma",
+            "mumax": 0.25,
+            "pHopt": 7.2,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.4,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#22c55e",
+            "feedingTerms": [
+              {
+                "id": "x19_acetoclastic",
+                "metDict": {
+                  "acetate": [
+                    1.0,
+                    0.15
+                  ],
+                  "CH4": [
+                    1.0,
+                    0
+                  ],
+                  "CO2": [
+                    1.0,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x20": {
+            "name": "x20",
+            "count": 0.0,
+            "species": "ma",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x21": {
+            "name": "x21",
+            "count": 0.0,
+            "species": "ma",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x19": [
+            [
+              "x20",
+              "acetate < 0.05",
+              0.15
+            ]
+          ],
+          "x20": [
+            [
+              "x21",
+              "True",
+              0.003
+            ]
+          ]
+        }
+      },
+      "mz": {
+        "species": "Methanosarcina barkeri",
+        "color": "#15803d",
+        "subpopulations": {
+          "x22": {
+            "name": "x22",
+            "count": 0.003,
+            "species": "mz",
+            "mumax": 0.35,
+            "pHopt": 7.2,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.4,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#34d399",
+            "feedingTerms": [
+              {
+                "id": "x22_acetoclastic",
+                "metDict": {
+                  "acetate": [
+                    0.8,
+                    0.3
+                  ],
+                  "CH4": [
+                    0.8,
+                    0
+                  ],
+                  "CO2": [
+                    0.8,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "x22_hydrogenotrophic",
+                "metDict": {
+                  "H2": [
+                    1.0,
+                    0.05
+                  ],
+                  "CO2": [
+                    0.25,
+                    0.05
+                  ],
+                  "CH4": [
+                    1.25,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x23": {
+            "name": "x23",
+            "count": 0.0,
+            "species": "mz",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x24": {
+            "name": "x24",
+            "count": 0.0,
+            "species": "mz",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x22": [
+            [
+              "x23",
+              "(acetate < 0.05) and (H2 < 0.02)",
+              0.15
+            ]
+          ],
+          "x23": [
+            [
+              "x24",
+              "True",
+              0.003
+            ]
+          ]
+        }
+      },
+      "mb": {
+        "species": "Methanobacterium formicicum",
+        "color": "#0ea5a5",
+        "subpopulations": {
+          "x25": {
+            "name": "x25",
+            "count": 0.003,
+            "species": "mb",
+            "mumax": 0.3,
+            "pHopt": 7.3,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.4,
+            "Topt": 35,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#14b8a6",
+            "feedingTerms": [
+              {
+                "id": "x25_hydrogenotrophic",
+                "metDict": {
+                  "H2": [
+                    1.0,
+                    0.03
+                  ],
+                  "CO2": [
+                    0.25,
+                    0.03
+                  ],
+                  "CH4": [
+                    1.25,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x26": {
+            "name": "x26",
+            "count": 0.0,
+            "species": "mb",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          },
+          "x27": {
+            "name": "x27",
+            "count": 0.0,
+            "species": "mb",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 35,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x25": [
+            [
+              "x26",
+              "H2 < 0.02",
+              0.1
+            ]
+          ],
+          "x26": [
+            [
+              "x27",
+              "True",
+              0.003
+            ]
+          ]
+        }
+      }
+    },
+    "standaloneSubpopulations": []
+  }
+}

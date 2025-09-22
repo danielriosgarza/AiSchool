@@ -1,0 +1,323 @@
+{
+  "version": "1.0.0",
+  "metadata": {
+    "name": "MicrobiomeGym Model - E. coli Overflow (Template-Compliant)",
+    "description": "Minimal E. coli overflow metabolism demo strictly following the template shape.",
+    "author": "MicrobiomeGym Team",
+    "created": "2025-09-08T04:07:15Z",
+    "tags": [
+      "bacteria",
+      "subpopulations",
+      "transitions",
+      "ph",
+      "template-strict"
+    ]
+  },
+  "metabolome": {
+    "metabolites": [
+      {
+        "name": "glucose",
+        "concentration": 10.0,
+        "formula": {
+          "C": 6,
+          "H": 12,
+          "O": 6,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#ef4444",
+        "description": "Primary carbon source"
+      },
+      {
+        "name": "O2",
+        "concentration": 0.5,
+        "formula": {
+          "C": 0,
+          "H": 0,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#60a5fa",
+        "description": "Dissolved oxygen"
+      },
+      {
+        "name": "acetate",
+        "concentration": 0.0,
+        "formula": {
+          "C": 2,
+          "H": 4,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#3b82f6",
+        "description": "Overflow acid"
+      },
+      {
+        "name": "lactate",
+        "concentration": 0.0,
+        "formula": {
+          "C": 3,
+          "H": 6,
+          "O": 3,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#34d399",
+        "description": "Fermentation acid"
+      },
+      {
+        "name": "CO2",
+        "concentration": 0.0,
+        "formula": {
+          "C": 1,
+          "H": 0,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#6b7280",
+        "description": "Carbon dioxide"
+      },
+      {
+        "name": "HCO3",
+        "concentration": 2.0,
+        "formula": {
+          "C": 1,
+          "H": 1,
+          "O": 3,
+          "N": 0,
+          "S": 0,
+          "P": 0
+        },
+        "color": "#84cc16",
+        "description": "Bicarbonate buffer"
+      }
+    ],
+    "pH": {
+      "name": "pH Control",
+      "baseValue": 7.0,
+      "connectedMetabolites": {
+        "acetate": -0.08,
+        "lactate": -0.12,
+        "CO2": -0.005,
+        "HCO3": 0.06
+      },
+      "color": "#10b981",
+      "description": "Acids lower pH; bicarbonate buffers."
+    },
+    "temperature": 37,
+    "stirring": 1
+  },
+  "microbiome": {
+    "name": "microbial_community",
+    "color": "#4444ff",
+    "bacteria": {
+      "ec": {
+        "species": "ec",
+        "color": "#0ea5e9",
+        "subpopulations": {
+          "xa": {
+            "name": "xa",
+            "count": 0.01,
+            "species": "ec",
+            "mumax": 0.9,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.6,
+            "Topt": 37,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#38bdf8",
+            "feedingTerms": [
+              {
+                "id": "xa_respiration",
+                "metDict": {
+                  "glucose": [
+                    1.0,
+                    0.3
+                  ],
+                  "O2": [
+                    1.0,
+                    0.2
+                  ],
+                  "CO2": [
+                    1.2,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "xb": {
+            "name": "xb",
+            "count": 0.0,
+            "species": "ec",
+            "mumax": 0.9,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.6,
+            "Topt": 37,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#2563eb",
+            "feedingTerms": [
+              {
+                "id": "xb_overflow",
+                "metDict": {
+                  "glucose": [
+                    1.0,
+                    0.4
+                  ],
+                  "O2": [
+                    1.0,
+                    0.2
+                  ],
+                  "acetate": [
+                    0.6,
+                    0
+                  ],
+                  "CO2": [
+                    0.8,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "xc": {
+            "name": "xc",
+            "count": 0.0,
+            "species": "ec",
+            "mumax": 0.6,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 1.6,
+            "pH_sensitivity_right": 1.7,
+            "Topt": 37,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#f59e0b",
+            "feedingTerms": [
+              {
+                "id": "xc_fermentation",
+                "metDict": {
+                  "glucose": [
+                    1.0,
+                    0.4
+                  ],
+                  "acetate": [
+                    0.5,
+                    0
+                  ],
+                  "lactate": [
+                    0.5,
+                    0
+                  ],
+                  "CO2": [
+                    0.2,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "xd": {
+            "name": "xd",
+            "count": 0.0,
+            "species": "ec",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 37,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#9ca3af",
+            "feedingTerms": []
+          },
+          "xe": {
+            "name": "xe",
+            "count": 0.0,
+            "species": "ec",
+            "mumax": 0.0,
+            "pHopt": 7.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
+            "Topt": 37,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "dead",
+            "color": "#212121",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "xa": [
+            [
+              "xb",
+              "glucose >= 1.0 and O2 >= 0.15",
+              0.3
+            ],
+            [
+              "xc",
+              "O2 < 0.05 and glucose >= 0.05",
+              0.2
+            ],
+            [
+              "xd",
+              "glucose < 0.01",
+              0.05
+            ]
+          ],
+          "xb": [
+            [
+              "xa",
+              "glucose < 0.5 and O2 >= 0.15",
+              0.3
+            ],
+            [
+              "xc",
+              "O2 < 0.05",
+              0.2
+            ],
+            [
+              "xd",
+              "glucose < 0.01",
+              0.05
+            ]
+          ],
+          "xc": [
+            [
+              "xa",
+              "O2 >= 0.15 and glucose >= 0.05",
+              0.25
+            ],
+            [
+              "xd",
+              "glucose < 0.01",
+              0.05
+            ]
+          ],
+          "xd": [
+            [
+              "xe",
+              "\"\"",
+              0.005
+            ]
+          ]
+        }
+      }
+    },
+    "standaloneSubpopulations": []
+  }
+}
