@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
   "metadata": {
-    "name": "Kombucha – Full Process (Standard Params)",
-    "description": "Yeast + AAB (Komagataeibacter, Acetobacter) + LAB + stress yeast, with boolean transitions. All kinetic parameters chosen from {0.01, 0.05, 0.1, 0.5, 1, 10}.",
-    "author": "MicrobiomeGym",
-    "created": "2025-09-22T13:03:57Z",
+    "name": "Kombucha Fermentation (Boolean/Simple)",
+    "description": "SCOBY with yeasts, acetic-acid bacteria, lactobacillus; boolean transitions; loader-safe feeding terms.",
+    "author": "MicrobiomeGym Team",
+    "created": "2025-09-07T19:23:52Z",
     "tags": [
       "kombucha",
-      "standard-params",
-      "template",
-      "boolean"
+      "boolean",
+      "simple",
+      "pH-calibrated"
     ]
   },
   "metabolome": {
@@ -20,76 +20,97 @@
         "formula": {
           "C": 12,
           "H": 22,
-          "O": 11
+          "O": 11,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
-        "color": "#a78bfa",
-        "description": "Initial sugar"
+        "color": "#a37c28",
+        "description": "Initial sugar (g/L proxy)"
       },
       {
         "name": "glucose",
-        "concentration": 0.0,
+        "concentration": 2.0,
         "formula": {
           "C": 6,
           "H": 12,
-          "O": 6
+          "O": 6,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
-        "color": "#22c55e",
-        "description": "Monosaccharide"
+        "color": "#ef4444",
+        "description": "From sucrose hydrolysis"
       },
       {
         "name": "fructose",
-        "concentration": 0.0,
+        "concentration": 2.0,
         "formula": {
           "C": 6,
           "H": 12,
-          "O": 6
+          "O": 6,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
-        "color": "#fbbf24",
-        "description": "Monosaccharide"
+        "color": "#f59e0b",
+        "description": "From sucrose hydrolysis"
       },
       {
         "name": "ethanol",
-        "concentration": 0.0,
+        "concentration": 0.1,
         "formula": {
           "C": 2,
           "H": 6,
-          "O": 1
+          "O": 1,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
-        "color": "#60a5fa",
-        "description": "Yeast product"
+        "color": "#7dd3fc",
+        "description": "Yeast product; AAB substrate"
       },
       {
         "name": "acetate",
-        "concentration": 0.0,
+        "concentration": 0.2,
         "formula": {
           "C": 2,
           "H": 4,
-          "O": 2
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
         "color": "#3b82f6",
-        "description": "Acetic acid (AAB)"
+        "description": "AAB product"
       },
       {
         "name": "gluconate",
-        "concentration": 0.0,
+        "concentration": 0.1,
         "formula": {
           "C": 6,
           "H": 11,
-          "O": 7
+          "O": 7,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
-        "color": "#10b981",
-        "description": "Gluconic acid (AAB)"
+        "color": "#22d3ee",
+        "description": "From glucose oxidation by AAB"
       },
       {
         "name": "lactate",
-        "concentration": 0.0,
+        "concentration": 0.05,
         "formula": {
           "C": 3,
-          "H": 5,
-          "O": 3
+          "H": 6,
+          "O": 3,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
-        "color": "#ef4444",
-        "description": "Lactic acid (LAB)"
+        "color": "#34d399",
+        "description": "LAB product"
       },
       {
         "name": "cellulose",
@@ -97,61 +118,76 @@
         "formula": {
           "C": 6,
           "H": 10,
-          "O": 5
+          "O": 5,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
-        "color": "#94a3b8",
-        "description": "Pellicle (solid)"
+        "color": "#9ca3af",
+        "description": "Pellicle (extracellular pool)"
       },
       {
         "name": "CO2",
         "concentration": 0.0,
         "formula": {
           "C": 1,
-          "O": 2
+          "H": 0,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
         "color": "#6b7280",
-        "description": "Carbon dioxide"
+        "description": "Dissolved CO2 proxy"
       },
       {
         "name": "O2",
-        "concentration": 0.3,
+        "concentration": 0.4,
         "formula": {
-          "O": 2
+          "C": 0,
+          "H": 0,
+          "O": 2,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
-        "color": "#93c5fd",
-        "description": "Dissolved oxygen"
+        "color": "#60a5fa",
+        "description": "Dissolved oxygen (surface)"
       },
       {
         "name": "HCO3",
-        "concentration": 0.05,
+        "concentration": 1.0,
         "formula": {
           "C": 1,
           "H": 1,
-          "O": 3
+          "O": 3,
+          "N": 0,
+          "S": 0,
+          "P": 0
         },
         "color": "#84cc16",
-        "description": "Mild buffer"
+        "description": "Bicarbonate buffer"
       }
     ],
     "pH": {
       "name": "pH Control",
-      "baseValue": 5.5,
+      "baseValue": 5.2,
       "connectedMetabolites": {
-        "acetate": -0.1,
-        "gluconate": -0.1,
-        "lactate": -0.1,
+        "acetate": -0.07,
+        "gluconate": -0.05,
+        "lactate": -0.06,
         "CO2": -0.01,
-        "HCO3": 0.05
+        "HCO3": 0.06
       },
       "color": "#10b981",
-      "description": "Acids lower pH; mild tea buffer."
+      "description": "Acids lower pH; bicarbonate provides mild buffering."
     },
     "temperature": 28,
-    "stirring": 1
+    "stirring": 0
   },
   "microbiome": {
-    "name": "kombucha_full",
-    "color": "#4444ff",
+    "name": "kombucha_scoby",
+    "color": "#8b5cf6",
     "bacteria": {
       "sc": {
         "species": "Saccharomyces cerevisiae",
@@ -159,15 +195,15 @@
         "subpopulations": {
           "x1": {
             "name": "x1",
-            "count": 0.05,
+            "count": 0.002,
             "species": "sc",
-            "mumax": 0.1,
-            "pHopt": 4.8,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
+            "mumax": 0.2,
+            "pHopt": 5.2,
+            "pH_sensitivity_left": 1.6,
+            "pH_sensitivity_right": 1.6,
             "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
             "state": "active",
             "color": "#fbbf24",
             "feedingTerms": [
@@ -175,15 +211,15 @@
                 "id": "x1_invertase",
                 "metDict": {
                   "sucrose": [
-                    0.5,
-                    0.5
+                    0.6,
+                    0.6
                   ],
                   "glucose": [
-                    0.5,
+                    0.3,
                     0.0
                   ],
                   "fructose": [
-                    0.5,
+                    0.3,
                     0.0
                   ]
                 }
@@ -192,15 +228,15 @@
                 "id": "x1_ferment_glucose",
                 "metDict": {
                   "glucose": [
-                    0.1,
-                    0.1
+                    0.4,
+                    0.4
                   ],
                   "ethanol": [
-                    1,
+                    0.4,
                     0.0
                   ],
                   "CO2": [
-                    1,
+                    0.4,
                     0.0
                   ]
                 }
@@ -209,15 +245,15 @@
                 "id": "x1_ferment_fructose",
                 "metDict": {
                   "fructose": [
-                    0.1,
-                    0.1
+                    0.4,
+                    0.4
                   ],
                   "ethanol": [
-                    1,
+                    0.4,
                     0.0
                   ],
                   "CO2": [
-                    1,
+                    0.4,
                     0.0
                   ]
                 }
@@ -228,13 +264,13 @@
             "name": "x2",
             "count": 0.0,
             "species": "sc",
-            "mumax": 0.05,
-            "pHopt": 4.8,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
+            "mumax": 0.175,
+            "pHopt": 5.2,
+            "pH_sensitivity_left": 1.6,
+            "pH_sensitivity_right": 1.6,
             "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
             "state": "active",
             "color": "#f59e0b",
             "feedingTerms": [
@@ -242,15 +278,15 @@
                 "id": "x2_respire_glucose",
                 "metDict": {
                   "glucose": [
-                    0.05,
-                    0.5
+                    0.4,
+                    0.3
                   ],
                   "O2": [
-                    0.1,
-                    0.1
+                    0.4,
+                    0.2
                   ],
                   "CO2": [
-                    1,
+                    0.48,
                     0.0
                   ]
                 }
@@ -262,14 +298,14 @@
             "count": 0.0,
             "species": "sc",
             "mumax": 0.0,
-            "pHopt": 4.8,
-            "pH_sensitivity_left": 10,
-            "pH_sensitivity_right": 10,
+            "pHopt": 5.2,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
             "Topt": 28,
-            "tempSensitivity_left": 10,
-            "tempSensitivity_right": 10,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
             "state": "inactive",
-            "color": "#9ca3af",
+            "color": "#b1b0af",
             "feedingTerms": []
           }
         },
@@ -277,25 +313,25 @@
           "x1": [
             [
               "x2",
-              "(O2 >= 0.1) and ((glucose + fructose) <= 0.5)",
-              0.1
+              "(O2 >= 0.20) and ((glucose + fructose) <= 0.30)",
+              0.3
             ],
             [
               "x3",
-              "((glucose < 0.01) and (fructose < 0.01)) or (environment.pH.compute_pH(concentrations) < 3.0)",
-              0.1
+              "((glucose < 0.02) and (fructose < 0.02)) or (ethanol > 90.0)",
+              0.12
             ]
           ],
           "x2": [
             [
               "x1",
-              "(O2 < 0.05) or ((glucose + fructose) >= 1)",
-              0.1
+              "(O2 <= 0.10) or ((glucose + fructose) >= 0.50)",
+              0.3
             ],
             [
               "x3",
-              "((glucose < 0.01) and (fructose < 0.01)) or (environment.pH.compute_pH(concentrations) < 3.0)",
-              0.1
+              "((glucose < 0.02) and (fructose < 0.02)) or (ethanol > 90.0)",
+              0.12
             ]
           ],
           "x3": [
@@ -313,15 +349,15 @@
         "subpopulations": {
           "x4": {
             "name": "x4",
-            "count": 0.01,
+            "count": 0.006,
             "species": "kx",
-            "mumax": 0.05,
+            "mumax": 0.35,
             "pHopt": 4.5,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.5,
             "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
             "state": "active",
             "color": "#34d399",
             "feedingTerms": [
@@ -329,20 +365,37 @@
                 "id": "x4_ethanol_to_acetate",
                 "metDict": {
                   "ethanol": [
-                    0.1,
-                    0.1
+                    1.0,
+                    0.3
                   ],
                   "O2": [
-                    0.05,
-                    0.05
+                    1.0,
+                    0.2
                   ],
                   "acetate": [
-                    1,
-                    0.0
+                    1.2,
+                    0
                   ],
                   "CO2": [
-                    0.1,
-                    0.0
+                    0.2,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "x4_glucose_to_gluconate",
+                "metDict": {
+                  "glucose": [
+                    0.8,
+                    0.2
+                  ],
+                  "O2": [
+                    0.8,
+                    0.2
+                  ],
+                  "gluconate": [
+                    1.0,
+                    0
                   ]
                 }
               }
@@ -350,36 +403,32 @@
           },
           "x5": {
             "name": "x5",
-            "count": 0.01,
+            "count": 0.0,
             "species": "kx",
-            "mumax": 0.05,
+            "mumax": 0.3,
             "pHopt": 4.5,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.6,
             "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
             "state": "active",
             "color": "#059669",
             "feedingTerms": [
               {
-                "id": "x5_glucose_to_gluconate",
+                "id": "x5_cellulose",
                 "metDict": {
                   "glucose": [
-                    0.1,
-                    0.1
+                    0.6,
+                    0.3
                   ],
                   "O2": [
-                    0.05,
-                    0.05
+                    0.6,
+                    0.2
                   ],
-                  "gluconate": [
-                    1,
-                    0.0
-                  ],
-                  "CO2": [
-                    0.1,
-                    0.0
+                  "cellulose": [
+                    0.6,
+                    0
                   ]
                 }
               }
@@ -387,48 +436,15 @@
           },
           "x6": {
             "name": "x6",
-            "count": 0.01,
-            "species": "kx",
-            "mumax": 0.01,
-            "pHopt": 4.5,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
-            "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
-            "state": "active",
-            "color": "#047857",
-            "feedingTerms": [
-              {
-                "id": "x6_cellulose",
-                "metDict": {
-                  "glucose": [
-                    0.05,
-                    0.1
-                  ],
-                  "O2": [
-                    0.05,
-                    0.05
-                  ],
-                  "cellulose": [
-                    0.5,
-                    0.0
-                  ]
-                }
-              }
-            ]
-          },
-          "x7": {
-            "name": "x7",
             "count": 0.0,
             "species": "kx",
             "mumax": 0.0,
             "pHopt": 4.5,
-            "pH_sensitivity_left": 10,
-            "pH_sensitivity_right": 10,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
             "Topt": 28,
-            "tempSensitivity_left": 10,
-            "tempSensitivity_right": 10,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
             "state": "inactive",
             "color": "#b1b0af",
             "feedingTerms": []
@@ -438,94 +454,98 @@
           "x4": [
             [
               "x5",
-              "(ethanol < 1) and (glucose >= 1) and (O2 >= 0.05)",
-              0.1
+              "(glucose >= 0.2) and (O2 >= 0.2)",
+              0.2
             ],
             [
               "x6",
-              "(ethanol < 1) and (glucose >= 10) and (O2 >= 0.05)",
-              0.05
-            ],
-            [
-              "x7",
-              "(environment.pH.compute_pH(concentrations) < 3.0) or (O2 < 0.01)",
-              0.1
+              "(acetate > 5.0) or (environment.pH.compute_pH(concentrations) < 3.2)",
+              0.12
             ]
           ],
           "x5": [
             [
               "x4",
-              "(ethanol >= 1) and (O2 >= 0.05)",
+              "(O2 < 0.15) or (glucose < 0.2)",
               0.1
             ],
             [
               "x6",
-              "(glucose >= 10) and (O2 >= 0.05)",
-              0.05
-            ],
-            [
-              "x7",
-              "(environment.pH.compute_pH(concentrations) < 3.0) or (O2 < 0.01)",
-              0.1
-            ]
-          ],
-          "x6": [
-            [
-              "x5",
-              "(glucose < 1) or (acetate >= 10)",
-              0.05
-            ],
-            [
-              "x7",
-              "(environment.pH.compute_pH(concentrations) < 3.0) or (O2 < 0.01)",
-              0.1
-            ]
-          ],
-          "x7": [
-            [
-              "x7",
-              "",
-              0.0
+              "environment.pH.compute_pH(concentrations) < 3.0",
+              0.15
             ]
           ]
         }
       },
       "aa": {
         "species": "Acetobacter aceti",
-        "color": "#8b5cf6",
+        "color": "#16a34a",
         "subpopulations": {
-          "x8": {
-            "name": "x8",
-            "count": 0.01,
+          "x7": {
+            "name": "x7",
+            "count": 0.004,
             "species": "aa",
-            "mumax": 0.1,
-            "pHopt": 4.5,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
+            "mumax": 0.45,
+            "pHopt": 4.4,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.5,
             "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
             "state": "active",
-            "color": "#7c3aed",
+            "color": "#22c55e",
             "feedingTerms": [
               {
-                "id": "x8_ethanol_to_acetate",
+                "id": "x7_ethanol_oxid",
                 "metDict": {
                   "ethanol": [
-                    0.1,
-                    0.1
+                    1.0,
+                    0.3
                   ],
                   "O2": [
-                    0.1,
-                    0.05
+                    1.0,
+                    0.2
                   ],
                   "acetate": [
-                    1,
-                    0.0
+                    1.3,
+                    0
                   ],
                   "CO2": [
-                    0.1,
-                    0.0
+                    0.2,
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          "x8": {
+            "name": "x8",
+            "count": 0.0,
+            "species": "aa",
+            "mumax": 0.35,
+            "pHopt": 4.4,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.5,
+            "Topt": 28,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
+            "state": "active",
+            "color": "#15803d",
+            "feedingTerms": [
+              {
+                "id": "x8_glucose_partial_oxid",
+                "metDict": {
+                  "glucose": [
+                    0.8,
+                    0.2
+                  ],
+                  "O2": [
+                    0.8,
+                    0.2
+                  ],
+                  "gluconate": [
+                    1.0,
+                    0
                   ]
                 }
               }
@@ -535,63 +555,80 @@
             "name": "x9",
             "count": 0.0,
             "species": "aa",
-            "mumax": 0.1,
-            "pHopt": 4.5,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
+            "mumax": 0.0,
+            "pHopt": 4.4,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
             "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
-            "state": "active",
-            "color": "#6d28d9",
-            "feedingTerms": [
-              {
-                "id": "x9_acetate_overoxidation",
-                "metDict": {
-                  "acetate": [
-                    0.1,
-                    0.5
-                  ],
-                  "O2": [
-                    0.1,
-                    0.05
-                  ],
-                  "CO2": [
-                    1,
-                    0.0
-                  ]
-                }
-              }
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
+            "state": "inactive",
+            "color": "#b1b0af",
+            "feedingTerms": []
+          }
+        },
+        "connections": {
+          "x7": [
+            [
+              "x9",
+              "(ethanol < 0.05) or (O2 < 0.05)",
+              0.12
             ]
-          },
+          ],
+          "x8": [
+            [
+              "x9",
+              "(glucose < 0.05) or (O2 < 0.05)",
+              0.12
+            ]
+          ]
+        }
+      },
+      "lp": {
+        "species": "Lactiplantibacillus plantarum",
+        "color": "#0ea5e9",
+        "subpopulations": {
           "x10": {
             "name": "x10",
-            "count": 0.0,
-            "species": "aa",
-            "mumax": 0.05,
-            "pHopt": 4.5,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
+            "count": 0.003,
+            "species": "lp",
+            "mumax": 0.5,
+            "pHopt": 5.0,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.6,
             "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
             "state": "active",
-            "color": "#5b21b6",
+            "color": "#38bdf8",
             "feedingTerms": [
               {
-                "id": "x10_glucose_to_gluconate",
+                "id": "x10_ferment_glc",
                 "metDict": {
                   "glucose": [
-                    0.05,
-                    0.1
+                    1.0,
+                    0.4
                   ],
-                  "O2": [
-                    0.05,
-                    0.05
+                  "lactate": [
+                    1.2,
+                    0
                   ],
-                  "gluconate": [
-                    0.5,
-                    0.0
+                  "CO2": [
+                    0.05,
+                    0
+                  ]
+                }
+              },
+              {
+                "id": "x10_ferment_fru",
+                "metDict": {
+                  "fructose": [
+                    0.8,
+                    0.4
+                  ],
+                  "lactate": [
+                    1.0,
+                    0
                   ]
                 }
               }
@@ -600,111 +637,78 @@
           "x11": {
             "name": "x11",
             "count": 0.0,
-            "species": "aa",
+            "species": "lp",
             "mumax": 0.0,
-            "pHopt": 4.5,
-            "pH_sensitivity_left": 10,
-            "pH_sensitivity_right": 10,
+            "pHopt": 5.0,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
             "Topt": 28,
-            "tempSensitivity_left": 10,
-            "tempSensitivity_right": 10,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
             "state": "inactive",
-            "color": "#a78bfa",
+            "color": "#b1b0af",
             "feedingTerms": []
           }
         },
         "connections": {
-          "x8": [
-            [
-              "x9",
-              "(acetate >= 10) and (O2 >= 0.05) and ((glucose + fructose + ethanol) < 0.5)",
-              0.1
-            ],
-            [
-              "x10",
-              "(ethanol < 1) and (glucose >= 1) and (O2 >= 0.05)",
-              0.05
-            ],
-            [
-              "x11",
-              "(environment.pH.compute_pH(concentrations) < 3.0) or (O2 < 0.01)",
-              0.1
-            ]
-          ],
-          "x9": [
-            [
-              "x8",
-              "(acetate < 1) and (ethanol >= 1)",
-              0.05
-            ],
-            [
-              "x11",
-              "(environment.pH.compute_pH(concentrations) < 3.0) or (O2 < 0.01)",
-              0.1
-            ]
-          ],
           "x10": [
             [
-              "x8",
-              "(ethanol >= 1) and (O2 >= 0.05)",
-              0.05
-            ],
-            [
               "x11",
-              "(environment.pH.compute_pH(concentrations) < 3.0) or (O2 < 0.01)",
-              0.1
-            ]
-          ],
-          "x11": [
-            [
-              "x11",
-              "",
-              0.0
+              "(glucose < 0.05) and (fructose < 0.05)",
+              0.12
             ]
           ]
         }
       },
-      "lp": {
-        "species": "Lactiplantibacillus plantarum",
-        "color": "#ef4444",
+      "zb": {
+        "species": "Zygosaccharomyces bailii",
+        "color": "#a78bfa",
         "subpopulations": {
           "x12": {
             "name": "x12",
-            "count": 0.01,
-            "species": "lp",
-            "mumax": 0.05,
-            "pHopt": 4.0,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
+            "count": 0.002,
+            "species": "zb",
+            "mumax": 0.45,
+            "pHopt": 4.2,
+            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_right": 1.5,
             "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
+            "tempSensitivity_left": 3,
+            "tempSensitivity_right": 3,
             "state": "active",
-            "color": "#dc2626",
+            "color": "#c4b5fd",
             "feedingTerms": [
               {
-                "id": "x12_ferment_glucose",
+                "id": "x12_osmo_glc",
                 "metDict": {
                   "glucose": [
-                    0.1,
-                    0.1
+                    1.0,
+                    0.5
                   ],
-                  "lactate": [
-                    1,
-                    0.0
+                  "ethanol": [
+                    0.9,
+                    0
+                  ],
+                  "CO2": [
+                    0.9,
+                    0
                   ]
                 }
               },
               {
-                "id": "x12_ferment_fructose",
+                "id": "x12_osmo_fru",
                 "metDict": {
                   "fructose": [
-                    0.1,
-                    0.1
+                    1.0,
+                    0.5
                   ],
-                  "lactate": [
-                    1,
-                    0.0
+                  "ethanol": [
+                    0.9,
+                    0
+                  ],
+                  "CO2": [
+                    0.9,
+                    0
                   ]
                 }
               }
@@ -713,16 +717,16 @@
           "x13": {
             "name": "x13",
             "count": 0.0,
-            "species": "lp",
+            "species": "zb",
             "mumax": 0.0,
-            "pHopt": 4.0,
-            "pH_sensitivity_left": 10,
-            "pH_sensitivity_right": 10,
+            "pHopt": 4.2,
+            "pH_sensitivity_left": 2.0,
+            "pH_sensitivity_right": 2.0,
             "Topt": 28,
-            "tempSensitivity_left": 10,
-            "tempSensitivity_right": 10,
+            "tempSensitivity_left": 5,
+            "tempSensitivity_right": 5,
             "state": "inactive",
-            "color": "#f87171",
+            "color": "#b1b0af",
             "feedingTerms": []
           }
         },
@@ -730,102 +734,8 @@
           "x12": [
             [
               "x13",
-              "(environment.pH.compute_pH(concentrations) < 3.0) or ((glucose + fructose) < 0.1)",
-              0.1
-            ]
-          ],
-          "x13": [
-            [
-              "x13",
-              "",
-              0.0
-            ]
-          ]
-        }
-      },
-      "zb": {
-        "species": "Zygosaccharomyces bailii",
-        "color": "#0ea5e9",
-        "subpopulations": {
-          "x14": {
-            "name": "x14",
-            "count": 0.01,
-            "species": "zb",
-            "mumax": 0.05,
-            "pHopt": 3.8,
-            "pH_sensitivity_left": 1.0,
-            "pH_sensitivity_right": 1.0,
-            "Topt": 28,
-            "tempSensitivity_left": 1,
-            "tempSensitivity_right": 1,
-            "state": "active",
-            "color": "#38bdf8",
-            "feedingTerms": [
-              {
-                "id": "x14_ferment_glucose",
-                "metDict": {
-                  "glucose": [
-                    0.05,
-                    0.1
-                  ],
-                  "ethanol": [
-                    0.5,
-                    0.0
-                  ],
-                  "CO2": [
-                    0.5,
-                    0.0
-                  ]
-                }
-              },
-              {
-                "id": "x14_ferment_fructose",
-                "metDict": {
-                  "fructose": [
-                    0.05,
-                    0.1
-                  ],
-                  "ethanol": [
-                    0.5,
-                    0.0
-                  ],
-                  "CO2": [
-                    0.5,
-                    0.0
-                  ]
-                }
-              }
-            ]
-          },
-          "x15": {
-            "name": "x15",
-            "count": 0.0,
-            "species": "zb",
-            "mumax": 0.0,
-            "pHopt": 3.8,
-            "pH_sensitivity_left": 10,
-            "pH_sensitivity_right": 10,
-            "Topt": 28,
-            "tempSensitivity_left": 10,
-            "tempSensitivity_right": 10,
-            "state": "inactive",
-            "color": "#93c5fd",
-            "feedingTerms": []
-          }
-        },
-        "connections": {
-          "x14": [
-            [
-              "x15",
-              "(environment.pH.compute_pH(concentrations) < 3.0) or ((glucose + fructose) < 0.1)",
-              0.1
-            ]
-          ],
-          "x15": [
-            [
-              "x15",
-              "",
-              0.0
+              "(glucose < 0.05) and (fructose < 0.05)",
+              0.03
             ]
           ]
         }
