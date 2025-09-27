@@ -16,7 +16,7 @@
     "metabolites": [
       {
         "name": "sucrose",
-        "concentration": 8.0,
+        "concentration": 60.0,
         "formula": {
           "C": 12,
           "H": 22,
@@ -58,7 +58,7 @@
       },
       {
         "name": "ethanol",
-        "concentration": 0.1,
+        "concentration": 0.0,
         "formula": {
           "C": 2,
           "H": 6,
@@ -142,7 +142,7 @@
       },
       {
         "name": "O2",
-        "concentration": 10.0,
+        "concentration": 0.2,
         "formula": {
           "C": 0,
           "H": 0,
@@ -171,7 +171,7 @@
     ],
     "pH": {
       "name": "pH Control",
-      "baseValue": 5.2,
+      "baseValue": 4.5,
       "connectedMetabolites": {
         "acetate": -0.07,
         "gluconate": -0.05,
@@ -197,8 +197,8 @@
             "name": "x1",
             "count": 4.0,
             "species": "sc",
-            "mumax": 1.0,
-            "pHopt": 5.2,
+            "mumax": 0.6,
+            "pHopt": 4.8,
             "pH_sensitivity_left": 1.6,
             "pH_sensitivity_right": 1.6,
             "Topt": 28,
@@ -211,23 +211,44 @@
                 "id": "x1_invertase",
                 "metDict": {
                   "sucrose": [
-                    20.00,
-                    10000.0
+                    1.0,
+                    5.0
                   ],
                   "glucose": [
-                    2.0,
+                    1.0,
                     0.0
                   ],
                   "fructose": [
-                    2.0,
+                    1.0,
                     0.0
                   ],
                   "ethanol": [
-                    3.0,
+                    0.0,
                     0.0
                   ],
                   "CO2": [
-                    3.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              },
+              {
+                "id": "x1_ferment_hexoses",
+                "metDict": {
+                  "glucose": [
+                    1.0,
+                    1.0
+                  ],
+                  "fructose": [
+                    1.0,
+                    1.0
+                  ],
+                  "ethanol": [
+                    1.9,
+                    0.0
+                  ],
+                  "CO2": [
+                    1.9,
                     0.0
                   ]
                 }
@@ -238,8 +259,8 @@
             "name": "x2",
             "count": 0.0,
             "species": "sc",
-            "mumax": 0.5,
-            "pHopt": 5.2,
+            "mumax": 0.4,
+            "pHopt": 4.8,
             "pH_sensitivity_left": 1.6,
             "pH_sensitivity_right": 1.6,
             "Topt": 28,
@@ -272,7 +293,7 @@
             "count": 0.0,
             "species": "sc",
             "mumax": 0.0,
-            "pHopt": 5.2,
+            "pHopt": 4.8,
             "pH_sensitivity_left": 2.0,
             "pH_sensitivity_right": 2.0,
             "Topt": 28,
@@ -287,8 +308,8 @@
           "x1": [
             [
               "x2",
-              "(glucose<2.0) and (O2>1)",
-              0.001
+              "(glucose < 2.0) and (fructose < 2.0) and (O2 >= 0.1)",
+              0.002
             ],
             [
               "x3",
@@ -299,7 +320,7 @@
           "x2": [
             [
               "x1",
-              "(sucrose > 5.0)",
+              "(glucose >= 5.0) or (fructose >= 5.0)",
               0.003
             ],
             [
@@ -326,8 +347,8 @@
             "count": 4.0,
             "species": "kx",
             "mumax": 0.2,
-            "pHopt": 4.5,
-            "pH_sensitivity_left": 1.4,
+            "pHopt": 4.3,
+            "pH_sensitivity_left": 1.5,
             "pH_sensitivity_right": 1.5,
             "Topt": 28,
             "tempSensitivity_left": 3,
@@ -364,12 +385,12 @@
                     1.0
                   ],
                   "O2": [
-                    1.0,
+                    0.5,
                     1.0
                   ],
                   "gluconate": [
                     1.0,
-                    0
+                    0.0
                   ]
                 }
               }
@@ -379,10 +400,10 @@
             "name": "x5",
             "count": 0.0,
             "species": "kx",
-            "mumax": 0.3,
-            "pHopt": 4.5,
-            "pH_sensitivity_left": 1.4,
-            "pH_sensitivity_right": 1.6,
+            "mumax": 0.25,
+            "pHopt": 4.3,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.5,
             "Topt": 28,
             "tempSensitivity_left": 3,
             "tempSensitivity_right": 3,
@@ -413,7 +434,7 @@
             "count": 0.0,
             "species": "kx",
             "mumax": 0.0,
-            "pHopt": 4.5,
+            "pHopt": 4.3,
             "pH_sensitivity_left": 2.0,
             "pH_sensitivity_right": 2.0,
             "Topt": 28,
@@ -428,7 +449,7 @@
           "x4": [
             [
               "x5",
-              "(glucose >= 0.2) and (O2 >= 0.2)",
+              "(glucose >= 1.0) and (O2 >= 0.15)",
               0.2
             ],
             [
@@ -440,7 +461,7 @@
           "x5": [
             [
               "x4",
-              "(O2 < 0.15) or (glucose < 0.2)",
+              "(O2 < 0.12) or (glucose < 0.5)",
               0.1
             ],
             [
@@ -459,9 +480,9 @@
             "name": "x7",
             "count": 4.0,
             "species": "aa",
-            "mumax": 0.25,
+            "mumax": 0.3,
             "pHopt": 4.4,
-            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_left": 1.5,
             "pH_sensitivity_right": 1.5,
             "Topt": 28,
             "tempSensitivity_left": 3,
@@ -477,16 +498,16 @@
                     1.0
                   ],
                   "O2": [
-                    0.1,
+                    0.5,
                     1.0
                   ],
                   "acetate": [
-                    1.3,
-                    0
+                    1.0,
+                    0.0
                   ],
                   "CO2": [
-                    0.5,
-                    0
+                    0.0,
+                    0.0
                   ]
                 }
               }
@@ -498,7 +519,7 @@
             "species": "aa",
             "mumax": 0.35,
             "pHopt": 4.4,
-            "pH_sensitivity_left": 1.4,
+            "pH_sensitivity_left": 1.5,
             "pH_sensitivity_right": 1.5,
             "Topt": 28,
             "tempSensitivity_left": 3,
@@ -511,15 +532,15 @@
                 "metDict": {
                   "glucose": [
                     1.0,
-                    0.5
+                    1.0
                   ],
                   "O2": [
-                    1.0,
+                    0.5,
                     1.0
                   ],
                   "gluconate": [
                     1.0,
-                    0
+                    0.0
                   ]
                 }
               }
@@ -566,7 +587,7 @@
             "name": "x10",
             "count": 4.0,
             "species": "lp",
-            "mumax": 0.5,
+            "mumax": 0.45,
             "pHopt": 5.0,
             "pH_sensitivity_left": 1.5,
             "pH_sensitivity_right": 1.6,
@@ -584,12 +605,12 @@
                     1.0
                   ],
                   "lactate": [
-                    1.2,
-                    0
+                    1.8,
+                    0.0
                   ],
                   "CO2": [
-                    0.05,
-                    0
+                    0.0,
+                    0.0
                   ]
                 }
               },
@@ -598,11 +619,11 @@
                 "metDict": {
                   "fructose": [
                     1.0,
-                    1.1
+                    1.0
                   ],
                   "lactate": [
-                    1.0,
-                    0
+                    1.8,
+                    0.0
                   ]
                 }
               }
@@ -642,10 +663,10 @@
             "name": "x12",
             "count": 4.0,
             "species": "zb",
-            "mumax": 0.45,
-            "pHopt": 4.2,
-            "pH_sensitivity_left": 1.4,
-            "pH_sensitivity_right": 1.5,
+            "mumax": 0.5,
+            "pHopt": 4.4,
+            "pH_sensitivity_left": 1.5,
+            "pH_sensitivity_right": 1.6,
             "Topt": 28,
             "tempSensitivity_left": 3,
             "tempSensitivity_right": 3,
@@ -693,7 +714,7 @@
             "count": 0.0,
             "species": "zb",
             "mumax": 0.0,
-            "pHopt": 4.2,
+            "pHopt": 4.4,
             "pH_sensitivity_left": 2.0,
             "pH_sensitivity_right": 2.0,
             "Topt": 28,
