@@ -30,7 +30,7 @@
       },
       {
         "name": "glucose",
-        "concentration": 2.0,
+        "concentration": 0.0,
         "formula": {
           "C": 6,
           "H": 12,
@@ -44,7 +44,7 @@
       },
       {
         "name": "fructose",
-        "concentration": 2.0,
+        "concentration": 0.0,
         "formula": {
           "C": 6,
           "H": 12,
@@ -58,7 +58,7 @@
       },
       {
         "name": "ethanol",
-        "concentration": 0.1,
+        "concentration": 0.0,
         "formula": {
           "C": 2,
           "H": 6,
@@ -72,7 +72,7 @@
       },
       {
         "name": "acetate",
-        "concentration": 0.2,
+        "concentration": 0.0,
         "formula": {
           "C": 2,
           "H": 4,
@@ -86,7 +86,7 @@
       },
       {
         "name": "gluconate",
-        "concentration": 0.1,
+        "concentration": 0.0,
         "formula": {
           "C": 6,
           "H": 11,
@@ -100,7 +100,7 @@
       },
       {
         "name": "lactate",
-        "concentration": 0.05,
+        "concentration": 0.00,
         "formula": {
           "C": 3,
           "H": 6,
@@ -142,7 +142,7 @@
       },
       {
         "name": "O2",
-        "concentration": 10.0,
+        "concentration": 2.0,
         "formula": {
           "C": 0,
           "H": 0,
@@ -215,11 +215,11 @@
                     10000.0
                   ],
                   "glucose": [
-                    2.0,
+                    5.0,
                     0.0
                   ],
                   "fructose": [
-                    2.0,
+                    5.0,
                     0.0
                   ],
                   "ethanol": [
@@ -323,7 +323,7 @@
         "subpopulations": {
           "x4": {
             "name": "x4",
-            "count": 4.0,
+            "count": 0.5,
             "species": "kx",
             "mumax": 0.2,
             "pHopt": 4.5,
@@ -457,7 +457,7 @@
         "subpopulations": {
           "x7": {
             "name": "x7",
-            "count": 4.0,
+            "count": 0.50,
             "species": "aa",
             "mumax": 0.25,
             "pHopt": 4.4,
@@ -564,7 +564,7 @@
         "subpopulations": {
           "x10": {
             "name": "x10",
-            "count": 4.0,
+            "count": 0.5,
             "species": "lp",
             "mumax": 0.5,
             "pHopt": 5.0,
@@ -640,7 +640,7 @@
         "subpopulations": {
           "x12": {
             "name": "x12",
-            "count": 4.0,
+            "count": 0.5,
             "species": "zb",
             "mumax": 0.45,
             "pHopt": 4.2,
