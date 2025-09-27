@@ -217,7 +217,7 @@ def compile_config(cfg: TopLevelConfig, model_json_path: str) -> TopLevelConfig:
     This does not mutate cfg; it validates and raises on errors.
     """
     # Deferred import to avoid hard coupling
-    from mg_kinetic_model.model_from_json import ModelFromJson
+    from kinetic_model.model_from_json import ModelFromJson
 
     model = ModelFromJson(model_json_path)
 

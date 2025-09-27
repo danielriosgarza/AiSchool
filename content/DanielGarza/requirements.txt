@@ -1,0 +1,9 @@
+# Core requirements (extracted from pyproject.toml for compatibility)
+numpy>=1.21
+scipy>=1.8
+plotly>=5.0
+gymnasium>=0.29
+stable-baselines3>=2.0
+pyyaml>=6.0
+matplotlib>=3.5
+pandas>=1.4

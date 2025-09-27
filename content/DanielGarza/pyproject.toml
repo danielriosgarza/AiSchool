@@ -29,11 +29,12 @@ dependencies = [
     "numpy>=1.21",
     "scipy>=1.8",
     "plotly>=5.0",
-    "gym>=0.21",
+    "gymnasium>=0.29",
     "stable-baselines3>=2.0",
     "pyyaml>=6.0",
     "matplotlib>=3.5",
     "pandas>=1.4",
+    "pydantic>=2.0",
 ]
 dynamic = ["version"]
 
@@ -43,6 +44,17 @@ dev = [
     "black>=22.0",
     "flake8>=5.0",
     "mypy>=1.0",
+]
+extras = [
+    "pyabc>=0.12",
+    "ipycytoscape>=0.2",
+    "torchdiffeq>=0.2",
+    "tensorboard>=2.20.0",
+    "tqdm>=4.67.1",
+    "rich"
+]
+all = [
+    "daniel-garza-microbiome[dev,extras]",
 ]
 
 [project.scripts]

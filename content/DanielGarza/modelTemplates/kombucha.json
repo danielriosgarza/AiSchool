@@ -195,7 +195,7 @@
         "subpopulations": {
           "x1": {
             "name": "x1",
-            "count": 0.01,
+            "count": 4.0,
             "species": "sc",
             "mumax": 1.0,
             "pHopt": 5.2,
@@ -323,7 +323,7 @@
         "subpopulations": {
           "x4": {
             "name": "x4",
-            "count": 0.01,
+            "count": 4.0,
             "species": "kx",
             "mumax": 0.2,
             "pHopt": 4.5,
@@ -457,7 +457,7 @@
         "subpopulations": {
           "x7": {
             "name": "x7",
-            "count": 0.01,
+            "count": 4.0,
             "species": "aa",
             "mumax": 0.25,
             "pHopt": 4.4,
@@ -564,7 +564,7 @@
         "subpopulations": {
           "x10": {
             "name": "x10",
-            "count": 0.01,
+            "count": 4.0,
             "species": "lp",
             "mumax": 0.5,
             "pHopt": 5.0,
@@ -640,7 +640,7 @@
         "subpopulations": {
           "x12": {
             "name": "x12",
-            "count": 0.01,
+            "count": 4.0,
             "species": "zb",
             "mumax": 0.45,
             "pHopt": 4.2,
