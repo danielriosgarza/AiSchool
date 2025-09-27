@@ -6,18 +6,44 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "kinetic-model"
-description = "Kinetic modeling engine for microbial community dynamics"
+name = "daniel-garza-microbiome"
+description = "Kinetic modeling and reinforcement learning for microbial community dynamics"
 requires-python = ">=3.9"
 authors = [
-    { name = "Daniel Rios Garza" }
+    { name = "Daniel Rios Garza", email = "daniel.rios.garza@example.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
     "numpy>=1.21",
     "scipy>=1.8",
-    "plotly>=5.0"
+    "plotly>=5.0",
+    "gym>=0.21",
+    "stable-baselines3>=2.0",
+    "pyyaml>=6.0",
+    "matplotlib>=3.5",
+    "pandas>=1.4",
 ]
 dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=22.0",
+    "flake8>=5.0",
+    "mypy>=1.0",
+]
 
 [project.scripts]
 kinetic-model = "kinetic_model.cli:main"
@@ -27,10 +53,11 @@ package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["kinetic_model*"]
+include = ["kinetic_model*", "rl*"]
 
 [tool.setuptools.package-data]
 kinetic_model = ["py.typed"]
+rl = ["examples/configs/*.yaml", "docs/*.md"]
 
 [tool.setuptools.dynamic]
 version = { attr = "kinetic_model.__version__" }
