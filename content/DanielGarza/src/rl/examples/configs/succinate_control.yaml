@@ -1,0 +1,80 @@
+episode:
+  mix: {enabled: true, short_horizon: 10, long_horizon: 500, short_prob: 0.1}
+  dt_hours: 1.0
+  training_mode: fast
+
+simulation:
+  min_steps_per_pulse: 10
+  steps_per_hour_factor: 50
+
+target:
+  type: metabolite
+  name: succinate
+  use_delta: true
+
+actions:
+  pH_mode: emergent
+  actuators:
+    - {name: q,    type: continuous}
+    - {name: v,    type: continuous}
+    - {name: stir, type: continuous}
+    - {name: temp, type: continuous}
+  bounds:
+    q:    [0.0, 0.3]
+    v:    [0.0, 0.15]
+    stir: [0.0, 1.0]
+    temp: [36.0, 38.0]
+  smoothness:
+    enabled: true
+    max_delta: {q: 0.03, v: 0.02, stir: 0.15, temp: 0.3}
+
+observations:
+  include: [met.all, pH.used, actuator_echo.all, met.delta.all, met.rate.all]
+  pipeline:
+    - normalize: {method: running_mean_var, clip: [-5, 5]}
+    - clip: {min: -10, max: 10}
+
+rewards:
+  error_reward: -1000.0
+
+  terms:
+    # Short-only production shaping with deadbanded delta
+    - {expr: "clip(gate(abs(delta(met['succinate'])), 0.02, delta(met['succinate'])), 0, 1e9) / kpi.horizon", weight: 200.0, when: short}
+
+    # Per-step concentration shaping (always)
+    - {expr: "clip((met['succinate'] - 5.0) / 3.0, 0, 1)", weight: 0.8}
+    - {expr: "clip((met['succinate'] - 8.0) / 2.0, 0, 1)", weight: 0.5}
+    - {expr: "clip((met['succinate'] - 10.0) / 3.0, 0, 1)", weight: 0.3}
+
+    # Penalty for succinate below 7
+    - {expr: "clip(7.5 - met['succinate'], 0, 2.5)", weight: -2.0}
+
+    # Carbon concentration penalties (long-only)
+    - {expr: "met['glucose']", weight: -0.3, when: long}
+    - {expr: "met['pyruvate']", weight: -0.3, when: long}
+    - {expr: "species.live_count.total", weight: 0.5}
+
+    # Control costs (always)
+    - {expr: "(action.q * dt_hours) / kpi.horizon", weight: -0.015}
+    - {expr: "(action.v) / kpi.horizon", weight: -0.025}
+    - {expr: "(abs(action.temp - 37)) / kpi.horizon", weight: -0.015}
+    - {expr: "(action.stir) / kpi.horizon", weight: -0.008}
+
+  terminal:
+    # Terminal level bonus (always)
+    - {expr: "(clip(met['succinate'] - 8.0, 0, 1e9) ** 1.0)", weight: 30.0}
+
+    # Progressive terminal bonus (long-only)
+    - {expr: "(clip((met['succinate'] - 1.0) / 9.0, 0, 1.0) ** 2) * met['succinate']", weight: 25.0, when: long}
+
+    # Success bonus for hitting >=8 (long-only)
+    - {expr: "clip(met['succinate'] - 8.0, 0, 1e9)", weight: 60.0, when: long}
+
+init_randomization:
+  enabled: true
+  apply_to: short
+  metabolites:
+    - {pattern: ".*", low: 0.0, high: 8.0}
+
+
+

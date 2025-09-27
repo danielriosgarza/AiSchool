@@ -1,0 +1,86 @@
+episode:
+  mix: {enabled: true, short_horizon: 10, long_horizon: 500, short_prob: 0.1}
+  dt_hours: 1.0
+  training_mode: fast
+
+simulation:
+  min_steps_per_pulse: 10
+  steps_per_hour_factor: 50
+
+target:
+  type: biomass
+  name: bt
+  use_delta: false
+
+actions:
+  pH_mode: emergent
+  actuators:
+    - {name: q,    type: continuous}
+    - {name: v,    type: continuous}
+    - {name: stir, type: continuous}
+    - {name: temp, type: continuous}
+  bounds:
+    q:    [0.0, 0.3]
+    v:    [0.0, 0.15]
+    stir: [0.0, 1.0]
+    temp: [30.0, 40.0]
+  smoothness:
+    enabled: true
+    max_delta: {q: 0.03, v: 0.02, stir: 0.15, temp: 0.3}
+
+
+
+observations:
+  include: [met.all, pH.used, actuator_echo.all, met.delta.all, met.rate.all]
+  population:
+    species:
+      mode: live        # exposes live counts + shares of bh/bt/ri
+    subpopulations:
+      mode: 'off'       # current runtime doesn't surface subpop signals
+  pipeline:
+    - normalize: {method: running_mean_var, clip: [-5, 5]}
+    - clip: {min: -10, max: 10}
+
+rewards:
+  error_reward: -1000.0
+  terms:
+    # SHORT episodes: reward small positive changes in bt
+    - {expr: "delta(species.live_count['bt'])", weight: 10.0, when: short}
+    - {expr: "-delta(species.live_count['ri'])", weight: 5.0, when: short}
+
+    # LONG episodes: gentle sustainment rewards for bt thresholds (per-step, small)
+    - {expr: "gate(species.live_count['bt'], 0.0, 1.0)", weight: 0.05, when: long}
+    - {expr: "gate(species.live_count['bt'], 1.0, 1.0)", weight: 0.10, when: long}
+    - {expr: "gate(species.live_count['bt'], 4.0, 1.0)", weight: 0.20, when: long}
+    - {expr: "gate(species.live_count['bt'], 8.0, 1.0)", weight: 0.30, when: long}
+    # Keep mild, bounded pressure against ri during long episodes (threshold gates)
+    - {expr: "gate(species.live_count['ri'], 0.0, 1.0)", weight: -0.05, when: long}
+    - {expr: "gate(species.live_count['ri'], 1.0, 1.0)", weight: -0.10, when: long}
+    - {expr: "gate(species.live_count['ri'], 4.0, 1.0)", weight: -0.20, when: long}
+    - {expr: "gate(species.live_count['ri'], 8.0, 1.0)", weight: -0.30, when: long}
+
+    # Standard actuation costs (apply to all episodes)
+    - {expr: "(action.q * dt_hours) / kpi.horizon", weight: -0.02}
+    - {expr: "(action.v) / kpi.horizon", weight: -0.03}
+    - {expr: "(abs(action.temp - 37)) / kpi.horizon", weight: -0.015}
+    - {expr: "(action.stir) / kpi.horizon", weight: -0.008}
+
+  terminal:
+    # Long: final goals - high bt, low ri, low substrates (reasonable weights)
+    - {expr: "clip(species.live_count['bt'] - 3.0, 0, 1e9)", weight: 50.0, when: long}
+    - {expr: "clip(species.live_count['bt'] - 5.0, 0, 1e9)", weight: 75.0, when: long}
+    - {expr: "clip(species.live_count['bt'] - 8.0, 0, 1e9)", weight: 100.0, when: long}
+    - {expr: "-species.live_count['ri']", weight: 50.0, when: long}
+    # Substrate targets: glucose < 1, pyruvate < 1
+    - {expr: "-clip(met['glucose'] - 1.0, 0, 1e9)", weight: 100.0, when: long}
+    - {expr: "-clip(met['pyruvate'] - 1.0, 0, 1e9)", weight: 75.0, when: long}
+
+init_randomization:
+  enabled: true
+  apply_to: short
+  metabolites:
+    - {pattern: ".*", low: 0.0, high: 8.0}
+  subpopulations:
+    - {state: active, low: 0.1, high: 1.0}
+
+

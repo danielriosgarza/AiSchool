@@ -1,0 +1,25 @@
+# Include documentation files
+include README.md
+include LICENSE
+include pyproject.toml
+
+# Include package data
+recursive-include src/kinetic_model *.py
+recursive-include src/rl *.py
+recursive-include src/rl/examples/configs *.yaml
+recursive-include src/rl/docs *.md
+
+# Include model templates
+recursive-include modelTemplates *.json
+
+# Include type hints
+recursive-include src *.pyi
+
+# Exclude unnecessary files
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *.pyd
+global-exclude __pycache__
+global-exclude .git*
+global-exclude .DS_Store
+global-exclude *.egg-info
