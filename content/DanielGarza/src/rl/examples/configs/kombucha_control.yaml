@@ -20,10 +20,10 @@ actions:
     - {name: stir, type: continuous}
     - {name: temp, type: continuous}
   bounds:
-    q:    [0.0, 0.003]
-    v:    [0.0, 0.015]
+    q:    [0.0, 0.01]
+    v:    [0.0, 0.01]
     stir: [0.0, 1.0]
-    temp: [27.0, 30.0]
+    temp: [25.0, 35.0]
  
 
 
@@ -46,12 +46,12 @@ rewards:
     - {expr: "clip(gate(abs(delta(met['fructose'])), 0.02, delta(met['fructose'])), 0, 1e9) / kpi.horizon", weight: 60.0, when: short}
 
     # Per-step concentration shaping (always)
-    - {expr: "clip((met['fructose'] - 3.0) / 10.0, 0, 1)", weight: 0.4}
-    - {expr: "clip((met['fructose'] - 5.0) / 5.0, 0, 1)", weight: 0.4}
-    - {expr: "clip((met['fructose'] - 10.0) / 5.0, 0, 1)", weight: 0.4}
+    - {expr: "clip((met['fructose'] - 0.1) / 10.0, 0, 1)", weight: 0.5}
+    - {expr: "clip((met['fructose'] - 1.0) / 5.0, 0, 1)", weight: 0.5}
+    - {expr: "clip((met['fructose'] - 2.0) / 5.0, 0, 1)", weight: 0.5}
 
     # Penalty for fructose below 1
-    - {expr: "clip(5.0 - met['fructose'], 0, 6.0)", weight: -2.5}
+    - {expr: "clip(0.5 - met['fructose'], 0, 6.0) / kpi.horizon", weight: -2.5}
 
     # Control costs (always)
     - {expr: "(action.q * dt_hours) / kpi.horizon", weight: -0.5}
@@ -59,22 +59,22 @@ rewards:
     - {expr: "(abs(action.temp - 28)) / kpi.horizon", weight: -0.6}
     - {expr: "(action.stir) / kpi.horizon", weight: -0.25}
 
-    # Long-only per-step sucrose cleanup shaping
-    - {expr: "met['sucrose'] / kpi.horizon", weight: -2.0, when: long}
+    # Long-only per-step sucrose cleanup shaping (normalized by initial ~80 g/L)
+    - {expr: "(met['sucrose'] / 80.0) / kpi.horizon", weight: -20.0, when: long}
 
   terminal:
     # Terminal level bonus (always)
-    - {expr: "(clip(met['fructose'] - 10.0, 0, 1e9) ** 1.0)", weight: 40.0}
+    - {expr: "(clip(met['fructose'] - 5.0, 0, 1e9) ** 1.0)", weight: 40.0}
 
     # Progressive terminal bonus (long-only)
-    - {expr: "(clip((met['fructose'] - 5.0) / 10.0, 0, 1.0) ** 2) * met['fructose']", weight: 30.0, when: long}
+    - {expr: "(clip((met['fructose'] - 1.0) / 10.0, 0, 1.0) ** 2) * met['fructose']", weight: 30.0, when: long}
 
-    # Success bonus for hitting >=8 (long-only)
-    - {expr: "clip(met['fructose'] - 8.0, 0, 1e9)", weight: 120.0, when: long}
+    # Success bonus for hitting >=2 (long-only)
+    - {expr: "clip(met['fructose'] - 2.0, 0, 1e9)", weight: 120.0, when: long}
 
 
-    # Carbon concentration penalties (long-only)
-    - {expr: "met['sucrose']", weight: -2.0, when: long}
+    # Carbon concentration penalties (long-only, normalized)
+    - {expr: "(met['sucrose'] / 80.0)", weight: -20.0, when: long}
     
 init_randomization:
   enabled: false
