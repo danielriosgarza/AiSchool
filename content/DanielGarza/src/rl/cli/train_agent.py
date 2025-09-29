@@ -429,6 +429,37 @@ def main():
     # callbacks: eval + normalization sync
     callbacks = []
     callbacks.append(NormSyncCallback(eval_env=eval_env, save_path=norm_path))
+    
+    # Add callback to save normalization stats with best model
+    class BestModelNormStatsCallback(BaseCallback):
+        def __init__(self, norm_stats_path: Path, best_model_dir: Path):
+            super().__init__(verbose=0)
+            self.norm_stats_path = Path(norm_stats_path)
+            self.best_model_dir = Path(best_model_dir)
+            self.best_model_dir.mkdir(parents=True, exist_ok=True)
+            self._last_best_model_time = 0
+            
+        def _on_step(self) -> bool:
+            # Check if best model was just saved by looking for the file
+            best_model_path = self.best_model_dir / "best_model.zip"
+            if best_model_path.exists():
+                try:
+                    current_time = best_model_path.stat().st_mtime
+                    if current_time > self._last_best_model_time:
+                        self._last_best_model_time = current_time
+                        # Copy normalization stats to best model directory
+                        if self.norm_stats_path.exists():
+                            import shutil
+                            best_norm_path = self.best_model_dir / "best_model_normalization_stats.json"
+                            shutil.copy2(self.norm_stats_path, best_norm_path)
+                            if self.verbose > 0:
+                                print(f"Copied normalization stats to {best_norm_path}")
+                except Exception as e:
+                    if self.verbose > 0:
+                        print(f"Failed to copy normalization stats: {e}")
+            return True
+    
+    callbacks.append(BestModelNormStatsCallback(norm_path, out.parent))
     callbacks.append(EvalCallback(eval_env, best_model_save_path=str(out.parent), log_path=str(Path(args.log_dir)), eval_freq=max(1, int(args.eval_freq)), deterministic=bool(args.eval_deterministic), render=False))
     callbacks.append(TrainRewardBreakdownCallback())
     if args.log_eval_breakdown:

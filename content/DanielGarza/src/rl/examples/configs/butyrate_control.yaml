@@ -1,5 +1,5 @@
 episode:
-  mix: {enabled: true, short_horizon: 10, long_horizon: 250, short_prob: 0.1}
+  mix: {enabled: true, short_horizon: 10, long_horizon: 500, short_prob: 0.1}
   dt_hours: 1.0
   training_mode: fast
 
@@ -30,31 +30,40 @@ rewards:
   error_reward: -1000.0
 
   terms:
-    # (Unchanged) Short-only production shaping with deadbanded delta
-    - {expr: "(clip((met['butyrate'] - 2.0) / 6.0, 0, 1) * gate(abs(delta(met['butyrate'])), 0.02, delta(met['butyrate']))) / kpi.horizon", weight: 200.0, when: short}
+    # 1) SHORT — always increase from random starts (your Option-B, unchanged)
+    - {expr: "gate(abs(delta(met['butyrate'])), 0.02, clip((delta(met['butyrate']) + abs(delta(met['butyrate'])))/2, 0, 0.2)) / kpi.horizon", weight: 200.0, when: short}
+    - {expr: "- gate(abs(delta(met['butyrate'])), 0.02, clip((abs(delta(met['butyrate'])) - delta(met['butyrate']))/2, 0, 0.2)) / kpi.horizon", weight: 300.0, when: short}
 
-    # (Unchanged) Per-step level shaping (always)
+    # 2) LONG — linear benefit for increases, penalize decreases (same form, gentler weights)
+    - {expr: "gate(abs(delta(met['butyrate'])), 0.02, clip((delta(met['butyrate']) + abs(delta(met['butyrate'])))/2, 0, 0.2)) / kpi.horizon", weight: 150.0, when: long}
+    - {expr: "- gate(abs(delta(met['butyrate'])), 0.02, clip((abs(delta(met['butyrate'])) - delta(met['butyrate']))/2, 0, 0.2)) / kpi.horizon", weight: 225.0, when: long}
+
+    # (kept) Small per-step level shaping above 8 (tiny effect; OK to keep)
     - {expr: "(clip(met['butyrate'] - 8.0, 0, 1e9) ** 1.0) / kpi.horizon", weight: 0.75}
 
-    # NEW — 5→8 corridor progress (always):
-    # Rewards ONLY positive delta when B is between 5 and 8, peaking near the middle.
-    - {expr: "(clip(delta(met['butyrate']), 0, 1e9) * clip(met['butyrate'] - 5.0, 0, 3.0) * clip(8.0 - met['butyrate'], 0, 3.0)) / (9.0 * kpi.horizon)", weight: 300.0}
-
-    # (Unchanged) Control costs (always)
-    - {expr: "(action.q * dt_hours) / kpi.horizon",           weight: -0.015}
-    - {expr: "(action.v) / kpi.horizon",                       weight: -0.025}
-    - {expr: "(abs(action.temp - 37)) / kpi.horizon",          weight: -0.015}
-    - {expr: "(action.stir) / kpi.horizon",                    weight: -0.008}
+    # (kept) Control costs
+    - {expr: "(action.q * dt_hours) / kpi.horizon",  weight: -0.015}
+    - {expr: "(action.v) / kpi.horizon",              weight: -0.025}
+    - {expr: "(abs(action.temp - 37)) / kpi.horizon", weight: -0.015}
+    - {expr: "(action.stir) / kpi.horizon",           weight: -0.008}
 
   terminal:
-    # (Unchanged) Terminal level bonus (always)
-    - {expr: "(clip(met['butyrate'] - 8.0, 0, 1e9) ** 1.0)", weight: 15.0}
+    # Laddered terminal gradient: 5→6, 6→7, 7→8
+    - {expr: "clip((met['butyrate'] - 5.0) / 1.0, 0, 1.0)", weight: 6.0}
+    - {expr: "clip((met['butyrate'] - 6.0) / 1.0, 0, 1.0)", weight: 8.0}
+    - {expr: "clip((met['butyrate'] - 7.0) / 1.0, 0, 1.0)", weight: 10.0}
 
-    # (Unchanged) Progressive terminal bonus (long-only)
-    - {expr: "(clip((met['butyrate'] - 1.0) / 9.0, 0, 1.0) ** 2) * met['butyrate']", weight: 25.0, when: long}
+    # Gentle bonus for finishing above 8 (linear overshoot)
+    - {expr: "clip(met['butyrate'] - 8.0, 0, 1e9)", weight: 6.0}
 
-    # NEW — Success bonus for hitting ≥8 (long-only)
-    - {expr: "clip(met['butyrate'] - 8.0, 0, 1e9)", weight: 30.0, when: long}
+    # ~6-point penalty for ending below 6 (linear shortfall up to 1)
+    - {expr: "clip((6.0 - met['butyrate']) / 1.0, 0, 1.0)", weight: -6.0}
+
+    # Extremely high cost for ending below 5 (binary-style extra hit)
+    - {expr: "clip(5.0 - met['butyrate'], 0, 1.0)", weight: -80.0}
+
+
+
 
 # Keep short-only randomization as in parity
 init_randomization:
