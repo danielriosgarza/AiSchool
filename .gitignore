@@ -231,3 +231,6 @@ models/
 *.bak
 *.backup
 *.orig
+
+# uv package manager
+uv.lock

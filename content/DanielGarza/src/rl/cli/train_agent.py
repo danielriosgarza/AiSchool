@@ -428,7 +428,34 @@ def main():
 
     # callbacks: eval + normalization sync
     callbacks = []
-    callbacks.append(NormSyncCallback(eval_env=eval_env, save_path=norm_path))
+    
+    # Custom EvalCallback that ensures proper normalization sync before evaluation
+    class EvalCallbackWithNormSync(EvalCallback):
+        def __init__(self, eval_env, norm_sync_callback, **kwargs):
+            super().__init__(eval_env, **kwargs)
+            self.norm_sync_callback = norm_sync_callback
+            
+        def _on_step(self) -> bool:
+            # Force normalization sync before evaluation
+            if (self.num_timesteps % self.eval_freq == 0) and (self.num_timesteps > self.n_eval_episodes):
+                # Sync normalization stats before evaluation
+                try:
+                    train_stats_list = self.training_env.env_method("get_normalization_stats")
+                    train_stats = None
+                    for s in train_stats_list:
+                        if isinstance(s, dict) and s.get("status") not in {"normalization_not_enabled", "not_initialized"}:
+                            train_stats = s
+                            break
+                    if isinstance(train_stats, dict):
+                        mean = np.array(train_stats["mean"], dtype=np.float32)
+                        m2 = np.array(train_stats["m2"], dtype=np.float32)
+                        count = int(train_stats["count"])
+                        self.eval_env.env_method("set_normalization_stats", mean, m2, count)
+                except Exception:
+                    pass
+            
+            # Call parent's _on_step for evaluation
+            return super()._on_step()
     
     # Add callback to save normalization stats with best model
     class BestModelNormStatsCallback(BaseCallback):
@@ -459,8 +486,23 @@ def main():
                         print(f"Failed to copy normalization stats: {e}")
             return True
     
+    # Create norm sync callback first
+    norm_sync_callback = NormSyncCallback(eval_env=eval_env, save_path=norm_path)
+    
+    # Create eval callback with norm sync
+    eval_callback = EvalCallbackWithNormSync(
+        eval_env=eval_env,
+        norm_sync_callback=norm_sync_callback,
+        best_model_save_path=str(out.parent),
+        log_path=str(Path(args.log_dir)),
+        eval_freq=max(1, int(args.eval_freq)),
+        deterministic=bool(args.eval_deterministic),
+        render=False
+    )
+    
+    callbacks.append(norm_sync_callback)
     callbacks.append(BestModelNormStatsCallback(norm_path, out.parent))
-    callbacks.append(EvalCallback(eval_env, best_model_save_path=str(out.parent), log_path=str(Path(args.log_dir)), eval_freq=max(1, int(args.eval_freq)), deterministic=bool(args.eval_deterministic), render=False))
+    callbacks.append(eval_callback)
     callbacks.append(TrainRewardBreakdownCallback())
     if args.log_eval_breakdown:
         class _EvalBreakdownTB(BaseCallback):
