@@ -26,7 +26,7 @@ conda deactivate
 ## Paths to the conda environments for this tutorial
 
 ```
-/shared/ifbstor1/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_gapseq
+/shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_gapseq
 /shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_reasoning
 /shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/numerical_modelling
 ```
@@ -47,3 +47,4 @@ We will do the following:
     - [Using toy community data](https://gitlab.inria.fr/cfrioux/ebame#using-toy-community-data-)
     - [Using realistic communities](https://gitlab.inria.fr/cfrioux/ebame#using-realistic-communities-)
 - BONUS - [Inferring seed metabolites (nutrients) from the metabolic network](https://gitlab.inria.fr/cfrioux/ebame#inferring-seed-metabolites-nutrients-from-the-metabolic-network)
+
