@@ -58,5 +58,30 @@ And activate the following environment:
 conda activate /shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_reasoning
 ```
 
+## Wanna play with Answer Set Programming?
+
+```
+reaction("r1").
+reactant("A", "r1").
+product("B", "r1").
+
+reaction("r2").
+reactant("B", "r2").
+reactant("C", "r2").
+product("D", "r2").
+
+seed("A").
+seed("C").
+
+scope(M) :- seed(M).
+scope(M) :- product(M,R); reaction(R); scope(N) : reactant(N,R).
+
+#show scope/1.
+```
+
+Try it on the [clingo online solver](https://potassco.org/clingo/run/)
+
+
+
 
 
