@@ -53,4 +53,10 @@ To start, get the data by cloning the git repository:
 git clone https://gitlab.inria.fr/cfrioux/ebame.git
 ```
 
+And activate the following environment:
+```
+conda activate /shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_reasoning
+```
+
+
 
