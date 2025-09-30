@@ -330,9 +330,6 @@ class Metabolome:
             gridwidth=0.5
         )
         
-        # Show the plot
-        fig.show()
-        
         return fig
 
     # ----------------------------------------------------------------------- #
