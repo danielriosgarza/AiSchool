@@ -1,0 +1,119 @@
+# Statistically predicting and optimizing the functions of microbial consortia
+
+Exercise author: Juan Díaz-Colunga, IPLA-CSIC, Oviedo, Spain ([email](mailto:juan.diaz@ipla.csic.es), [web](https://jdiazc9.github.io/))
+
+## Problem setup
+
+We have $N$ microbes, and we want to know how to combine them to maximize a target function (e.g., biofuel synthesis). If we only consider the presence/absence of each species, there are $2^N$ possible combinations, but if $N$ is large, we typically won't be able to test them all empirically.
+
+What we want is to start off with a small sample --- that is, measurements of the function of a subset of consortia --- and predict what the function of the remaining consortia would be. What methods can we use to achieve this?
+
+Let's see what ChatGPT suggests. It's a good idea to challenge ChatGPT with the most general version of the problem. Here is an example prompt:
+
+> *I want you to help me solve a problem. Consider a set of N binary variables, named x_1 to x_N, which take values 0 or 1. For each combination of 0s and 1s, there is an output variable (let's call it y) which takes real values. I have only a subset of empirical measurements, that is, only a few out of the 2\^N possible combinations of 0s and 1s for which I have directly quantified y. Importantly, I cannot take any new measurements. I want to use some statistical or computational method to predict what y would be for the combinations that I haven't measured. Can you provide a brief overview of different statistical methods that I could try?*
+
+## Testing the methods
+
+If everything went well, ChatGPT probably suggested a few alternatives. Which of these will work better?
+
+Let's try to answer the question using a specific data set.
+
+```{r}
+df <- read.csv('../data/full-factorial-construction_Diaz-Colunga2024.csv')
+colnames(df) <- c(paste0('x', 1:8), 'y')
+```
+
+This data set is combinatorially complete (it contains all $2^8 = 256$ combinations of $N=8$ species). This is convenient because it lets us know what the **true** functional maximum is:
+
+```{r}
+F_max <- max(df$y)
+best_consortium <- df[which.max(df$y), 1:8]
+
+print(F_max)
+print(best_consortium)
+```
+
+In this case, the maximum function is $F_\text{max} = 1.295$, achieved by the consortium that contains species 1, 3, 6, and 8 (denoted $10100101$).
+
+But what if our experiment was incomplete? Say that we had only measured the function of some, but not all consortia. To mimic this scenario, we will split our data into two: a *training set* (which we will assume that we have measured) and a *test set* (which we will pretend that we don't know). Let's say that the sample (the training set) contains $N_\text{obs}= 30$ observations.
+
+```{r}
+set.seed(0) # for reproducibility
+
+N_obs <- 30 
+
+df <- df[sample(nrow(df)), ]
+training_set <- df[1:N_obs, ]
+test_set <- df[(N_obs + 1):nrow(df), ]
+```
+
+What we want is to generate predictions for the functions of the consortia in the test set.
+
+Use your favorite method to generate a vector of predictions, `y_pred`. You can find example code for a few methods in the `methods.R` file under the `scripts` folder.
+
+```{r}
+# write your code here to generate y_pred
+# example: predict using a linear model (LM)
+fit <- lm(y ~ ., data = training_set)
+y_pred <- predict(fit, newdata = test_set[, 1:8])
+```
+
+## Evaluating the methods
+
+Remember! Our ultimate goal is to **maximize the function**. At this point, we have the function of all 256 consortia: for 30 of them, this is en empirical value. For the remaining 226, it is a prediction. Let's build a data frame that contains both the training set and the predictions for the test set.
+
+```{r}
+df_comb <- rbind(training_set,
+                 cbind(test_set[, 1:8], y = y_pred))
+```
+
+What is the maximum function in this data frame, and which consortium achieves it?
+
+```{r}
+F_max_pred <- max(df_comb$y)
+which_max <- which.max(df_comb$y)
+best_consortium_pred <- df_comb[which_max, 1:8]
+
+print(F_max_pred)
+print(best_consortium_pred)
+```
+
+If you used a (non-regularized) linear model, as in the example provided, then you should be seeing that the best consortium is predicted to be $01111111$ --- that is, the one that contains all species except the first.
+
+Clearly, the method failed: the true optimal consortium was $10100101$, but the method is telling us that it is $01111111$. But there is still hope: even if the predicted consortium is not truly optimal, there is a chance that it may have very high function. Sure, it will be lower than the true maximum ($F_\text{max}$), but it may be very close to it (for example, if its function was $0.99F_\text{max}$, we would still be happy).
+
+To properly evaluate the performance of the method, we need to check this. We can pretend that we are now going back in the lab, empirically assembling the consortium that the method told us, and checking its function. Let's do this exercise "virtually" by examining the original, unmodified data frame `df`.
+
+```{r}
+F_true_xopt <- df$y[which_max]
+```
+
+How close is the true function of $01111111$ to our target, $F_\text{max}$? We can define a "quality" of the prediction, $Q$, as the ratio between the two:
+
+```{r}
+Q <- F_true_xopt / F_max
+print(Q)
+```
+
+So, in this case, the method was not great: it predicted that the best consortium was $01111111$, but, in reality, this consortium has a function $\sim 20 \%$ lower than $F_\text{max}$.
+
+### Additional checks
+
+Perhaps the most straightforward thing we can do to check how well a method performs is comparing its predictions with the true functions --- remember that we had these true functions at the beginning (even if we removed them from the training set). Let's plot the predicted versus the true functions:
+
+```{r}
+library(ggplot2)
+ggplot(data.frame(true = test_set$y, pred = y_pred),
+       aes(x = pred, y = true)) +
+  geom_point() +
+  geom_blank(aes(x = true, y = pred)) + # little trick for equal x and y scales
+
+  geom_abline(slope = 1,
+              intercept = 0,
+              color = 'gray') +
+  xlab('Predicted F') +
+  ylab('True F') +
+  theme(aspect.ratio = 1)
+```
+
+Depending on which method we chose, this plot may look like a total mess or somewhat OK.
