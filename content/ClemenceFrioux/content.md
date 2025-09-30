@@ -48,3 +48,9 @@ We will do the following:
     - [Using realistic communities](https://gitlab.inria.fr/cfrioux/ebame#using-realistic-communities-)
 - BONUS - [Inferring seed metabolites (nutrients) from the metabolic network](https://gitlab.inria.fr/cfrioux/ebame#inferring-seed-metabolites-nutrients-from-the-metabolic-network)
 
+To start, get the data by cloning the git repository:
+```
+git clone https://gitlab.inria.fr/cfrioux/ebame.git
+```
+
+
