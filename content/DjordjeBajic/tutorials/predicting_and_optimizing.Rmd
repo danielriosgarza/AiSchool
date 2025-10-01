@@ -19,7 +19,7 @@ If everything went well, ChatGPT probably suggested a few alternatives. Which of
 Let's try to answer the question using a specific data set.
 
 ```{r}
-df <- read.csv('../data/full-factorial-construction_Diaz-Colunga2024.csv')
+df <- read.csv('content/DjordjeBajic/data/full-factorial-construction_Diaz-Colunga2024.csv')
 colnames(df) <- c(paste0('x', 1:8), 'y')
 ```
 
