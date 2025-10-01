@@ -1,7 +1,7 @@
 ###
 
 # load data and rename columns
-df <- read.csv('./data/full-factorial-construction_Diaz-Colunga2024.csv')
+df <- read.csv('content/DjordjeBajic/data/full-factorial-construction_Diaz-Colunga2024.csv')
 colnames(df) <- c(paste0('x', 1:8), 'y')
 
 # what's the true functional maximum?
