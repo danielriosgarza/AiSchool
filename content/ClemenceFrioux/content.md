@@ -8,7 +8,7 @@ The following has to be done once
 # load the module
 module load conda
 
-# conda init
+conda init
 ```
 
 To activate an environment:
@@ -30,6 +30,8 @@ conda deactivate
 /shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_reasoning
 /shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/numerical_modelling
 ```
+
+We will mostly be using `/shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_reasoning`
 
 ## Tutorial
 
@@ -80,6 +82,7 @@ scope(M) :- product(M,R); reaction(R); scope(N) : reactant(N,R).
 ```
 
 Try it on the [clingo online solver](https://potassco.org/clingo/run/)
+
 
 
 
