@@ -38,6 +38,16 @@ We will mostly be using `/shared/projects/tp_2534_ai_microbiomes_181502/conda/en
 See [https://gitlab.inria.fr/cfrioux/ebame](https://gitlab.inria.fr/cfrioux/ebame)
 The tutorial has a section dedicated to metabolic network reconstruction which we will not consider during this training.
 
+To start, get the data by cloning the git repository:
+```
+git clone https://gitlab.inria.fr/cfrioux/ebame.git
+```
+
+And activate the following environment:
+```
+conda activate /shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_reasoning
+```
+
 We will do the following:
 
 - Manipulation of metabolic models with [Fluxer](https://fluxer.umbc.edu/)
@@ -50,15 +60,6 @@ We will do the following:
     - [Using realistic communities](https://gitlab.inria.fr/cfrioux/ebame#using-realistic-communities-)
 - BONUS - [Inferring seed metabolites (nutrients) from the metabolic network](https://gitlab.inria.fr/cfrioux/ebame#inferring-seed-metabolites-nutrients-from-the-metabolic-network)
 
-To start, get the data by cloning the git repository:
-```
-git clone https://gitlab.inria.fr/cfrioux/ebame.git
-```
-
-And activate the following environment:
-```
-conda activate /shared/projects/tp_2534_ai_microbiomes_181502/conda/envs/ebame_metabo_reasoning
-```
 
 ## Wanna play with Answer Set Programming?
 
@@ -82,6 +83,7 @@ scope(M) :- product(M,R); reaction(R); scope(N) : reactant(N,R).
 ```
 
 Try it on the [clingo online solver](https://potassco.org/clingo/run/)
+
 
 
 
