@@ -41,7 +41,7 @@ The tutorial has a section dedicated to metabolic network reconstruction which w
 We will do the following:
 
 - Manipulation of metabolic models with [Fluxer](https://fluxer.umbc.edu/)
-- A closer look at a metabolic network: the SBML file
+- A closer look at a metabolic network: the [SBML file](https://gitlab.inria.fr/cfrioux/ebame#a-closer-look-at-a-metabolic-network-the-sbml)
 - Metabolic network modelling
     - [Using toy data](https://gitlab.inria.fr/cfrioux/ebame#using-toy-data-)
     - [Using real networks](https://gitlab.inria.fr/cfrioux/ebame#using-real-networks-)
@@ -82,6 +82,7 @@ scope(M) :- product(M,R); reaction(R); scope(N) : reactant(N,R).
 ```
 
 Try it on the [clingo online solver](https://potassco.org/clingo/run/)
+
 
 
 
