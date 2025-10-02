@@ -35,8 +35,8 @@ We will mostly be using `/shared/projects/tp_2534_ai_microbiomes_181502/conda/en
 
 ## Tutorial
 
-See [https://gitlab.inria.fr/cfrioux/ebame](https://gitlab.inria.fr/cfrioux/ebame)
-The tutorial has a section dedicated to metabolic network reconstruction which we will not consider during this training.
+See [https://gitlab.inria.fr/cfrioux/ebame](https://gitlab.inria.fr/cfrioux/ebame) for the complete tutorial.
+The tutorial has a section dedicated to metabolic network reconstruction which we may not consider during this training if time runs short.
 
 To start, get the data by cloning the git repository:
 ```
@@ -52,6 +52,7 @@ We will do the following:
 
 - Manipulation of metabolic models with [Fluxer](https://fluxer.umbc.edu/)
 - A closer look at a metabolic network: the [SBML file](https://gitlab.inria.fr/cfrioux/ebame#a-closer-look-at-a-metabolic-network-the-sbml)
+- Metabolic network reconstruction with [gapseq](https://gitlab.inria.fr/cfrioux/ebame#tutorial---metabolic-reconstruction-with-gapseq) from the protein sequences, or with [Kegg2bipartite](https://gitlab.inria.fr/cfrioux/ebame#metabolic-network-reconstruction-using-the-kegg-database-and-kegg2bipartite) from protein annotations
 - Metabolic network modelling
     - [Using toy data](https://gitlab.inria.fr/cfrioux/ebame#using-toy-data-)
     - [Using real networks](https://gitlab.inria.fr/cfrioux/ebame#using-real-networks-)
@@ -83,6 +84,7 @@ scope(M) :- product(M,R); reaction(R); scope(N) : reactant(N,R).
 ```
 
 Try it on the [clingo online solver](https://potassco.org/clingo/run/)
+
 
 
 
